@@ -11,26 +11,26 @@ using MyVinted.Core.Application.Services.ReadOnly;
 
 namespace MyVinted.Core.Application.Logic.Handlers.Queries
 {
-    public class GetAllOrdersQuery : IRequestHandler<GetAllOrdersRequest, GetAllOrdersResponse>
+    public class GetOrdersQuery : IRequestHandler<GetOrdersRequest, GetOrdersResponse>
     {
         private readonly IReadOnlyOrderService orderService;
         private readonly IHttpContextWriter httpContextWriter;
         private readonly IMapper mapper;
 
-        public GetAllOrdersQuery(IReadOnlyOrderService orderService, IHttpContextWriter httpContextWriter, IMapper mapper)
+        public GetOrdersQuery(IReadOnlyOrderService orderService, IHttpContextWriter httpContextWriter, IMapper mapper)
         {
             this.orderService = orderService;
             this.httpContextWriter = httpContextWriter;
             this.mapper = mapper;
         }
 
-        public async Task<GetAllOrdersResponse> Handle(GetAllOrdersRequest request, CancellationToken cancellationToken)
+        public async Task<GetOrdersResponse> Handle(GetOrdersRequest request, CancellationToken cancellationToken)
         {
-            var orders = await orderService.GetAllOrders(request);
+            var orders = await orderService.GetOrders(request);
 
             httpContextWriter.AddPagination(orders.CurrentPage, orders.PageSize, orders.TotalCount, orders.TotalPages);
 
-            return new GetAllOrdersResponse { Orders = mapper.Map<IEnumerable<OrderAdminDto>>(orders) };
+            return new GetOrdersResponse { Orders = mapper.Map<IEnumerable<OrderAdminDto>>(orders) };
         }
     }
 }

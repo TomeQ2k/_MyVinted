@@ -28,11 +28,11 @@ namespace MyVinted.Infrastructure.Shared.Services
             this.httpContextReader = httpContextReader;
         }
 
+        public async Task<IPagedList<Order>> GetOrders(GetOrdersRequest request)
+            => await unitOfWork.OrderRepository.GetFilteredOrdersWithValidatedStatus(request, request.ValidatedStatus, request.Login, (request.PageNumber, request.PageSize));
+
         public async Task<IEnumerable<Order>> GetUserOrders(GetUserOrdersRequest request)
             => await unitOfWork.OrderRepository.GetFilteredUserValidatedOrders(httpContextReader.CurrentUserId, request);
-
-        public async Task<IPagedList<Order>> GetAllOrders(GetAllOrdersRequest request)
-            => await unitOfWork.OrderRepository.GetFilteredOrdersWithValidatedStatus(request, request.ValidatedStatus, request.Login, (request.PageNumber, request.PageSize));
 
         public async Task<Order> PurchaseOrder(PurchaseOrderRequest request)
         {

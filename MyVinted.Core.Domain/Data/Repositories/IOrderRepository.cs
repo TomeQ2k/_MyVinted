@@ -9,8 +9,7 @@ namespace MyVinted.Core.Domain.Data.Repositories
 {
     public interface IOrderRepository : IRepository<Order>
     {
-        Task<IEnumerable<Order>> GetFilteredUserValidatedOrders(string userId, IOrderFiltersParams filters);
-
         Task<IPagedList<Order>> GetFilteredOrdersWithValidatedStatus(IOrderFiltersParams filters, OrderValidatedStatus validatedStatus, string login, (int PageNumber, int PageSize) pagination);
+        Task<IEnumerable<Order>> GetFilteredUserValidatedOrders(string userId, IOrderFiltersParams filters);
     }
 }

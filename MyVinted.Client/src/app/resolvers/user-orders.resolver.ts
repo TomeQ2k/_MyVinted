@@ -4,16 +4,15 @@ import { Observable, of } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Notifier } from "../services/notifier.service";
 import { OrderService } from "../services/order.service";
-import { OrdersRequest } from "./requests/orders-request";
 import { OrdersResponse } from "./responses/orders-response";
 
 @Injectable()
-export class AllOrdersResolver implements Resolve<OrdersResponse> {
+export class UserOrdersResolver implements Resolve<OrdersResponse> {
   constructor(private router: Router, private orderService: OrderService,
     private notifier: Notifier) { }
 
   resolve(route: ActivatedRouteSnapshot): Observable<OrdersResponse> {
-    return this.orderService.getAllOrders(new OrdersRequest()).pipe(
+    return this.orderService.getUserOrders().pipe(
       catchError(() => {
         this.notifier.push('Error occurred during loading data', 'error');
         this.router.navigate(['']);

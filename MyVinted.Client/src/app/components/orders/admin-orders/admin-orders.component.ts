@@ -39,7 +39,7 @@ export class AdminOrdersComponent implements OnInit {
   }
 
   public onFilterChanged() {
-    this.orderService.getAllOrders(Object.assign(this.ordersRequest, this.filterForm.value)).subscribe(response => {
+    this.orderService.getOrders(Object.assign(this.ordersRequest, this.filterForm.value)).subscribe(response => {
       this.orders = response.result.orders;
       this.pagination = response.pagination;
       this.listener.changeCurrentFilteredOrders(this.orders);

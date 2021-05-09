@@ -18,15 +18,6 @@ namespace MyVinted.Infrastructure.Persistence.Database.Repositories
         {
         }
 
-        public async Task<IEnumerable<Order>> GetFilteredUserValidatedOrders(string userId, IOrderFiltersParams filters)
-        {
-            var orders = context.Orders.Where(o => o.UserId == userId && o.IsValidated);
-
-            orders = OrderSortTypeSmartEnum.FromValue((int)filters.SortType).Sort(orders);
-
-            return await orders.ToListAsync();
-        }
-
         public async Task<IPagedList<Order>> GetFilteredOrdersWithValidatedStatus(IOrderFiltersParams filters, OrderValidatedStatus validatedStatus, string login, (int PageNumber, int PageSize) pagination)
         {
             var orders = context.Orders.AsQueryable();
@@ -39,6 +30,15 @@ namespace MyVinted.Infrastructure.Persistence.Database.Repositories
             orders = OrderSortTypeSmartEnum.FromValue((int)filters.SortType).Sort(orders);
 
             return await orders.ToPagedList<Order>(pagination.PageNumber, pagination.PageSize);
+        }
+
+        public async Task<IEnumerable<Order>> GetFilteredUserValidatedOrders(string userId, IOrderFiltersParams filters)
+        {
+            var orders = context.Orders.Where(o => o.UserId == userId && o.IsValidated);
+
+            orders = OrderSortTypeSmartEnum.FromValue((int)filters.SortType).Sort(orders);
+
+            return await orders.ToListAsync();
         }
     }
 }

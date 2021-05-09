@@ -81,7 +81,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CartResolver } from './resolvers/cart.resolver';
-import { OrdersResolver } from './resolvers/orders.resolver';
+import { UserOrdersResolver } from './resolvers/user-orders.resolver';
 import { OrdersComponent } from './components/orders/orders.component';
 import { PremiumPaymentComponent } from './components/account/premium-payment/premium-payment.component';
 import { PremiumStatsResolver } from './resolvers/premium-stats.resolver';
@@ -94,9 +94,9 @@ import { StatsListComponent } from './components/helpers/stats-list/stats-list.c
 import { MessageFormComponent } from './components/helpers/message-form/message-form.component';
 import { LogsComponent } from './components/admin-panel/logs-panel/logs.component';
 import { LogsResolver } from './resolvers/logs.resolver';
-import { AllOrdersResolver } from './resolvers/all-orders.resolver';
 import { AdminOrdersComponent } from './components/orders/admin-orders/admin-orders.component';
 import { UserOrdersComponent } from './components/orders/user-orders/user-orders.component';
+import { OrdersResolver } from './resolvers/orders.resolver';
 
 export const tokenGetter = () => localStorage.getItem('token');
 
@@ -206,7 +206,7 @@ registerLocaleData(localeEn, 'en', localeEnExtra);
     MessagesResolver,
     CartResolver,
     OrdersResolver,
-    AllOrdersResolver,
+    UserOrdersResolver,
     PremiumStatsResolver,
     AdminStatsResolver,
     LogsResolver,

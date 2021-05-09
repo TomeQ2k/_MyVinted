@@ -30,7 +30,7 @@ import { UsersComponent } from "./components/users/users.component";
 import { AnonymousGuard } from "./guards/anonymous.guard";
 import { AuthGuard } from "./guards/auth.guard";
 import { AdminStatsResolver } from "./resolvers/admin-stats.resolver";
-import { AllOrdersResolver } from "./resolvers/all-orders.resolver";
+import { OrdersResolver } from "./resolvers/orders.resolver";
 import { CartResolver } from "./resolvers/cart.resolver";
 import { CategoriesResolver } from "./resolvers/categories.resolver";
 import { ConversationsResolver } from "./resolvers/conversations.resolver";
@@ -42,7 +42,7 @@ import { NotificationsResolver } from "./resolvers/notifications.resolver";
 import { OfferUpdateResolver } from "./resolvers/offer-update.resolver";
 import { OfferResolver } from "./resolvers/offer.resolver";
 import { OffersResolver } from "./resolvers/offers.resolver";
-import { OrdersResolver } from "./resolvers/orders.resolver";
+import { UserOrdersResolver } from "./resolvers/user-orders.resolver";
 import { PremiumStatsResolver } from "./resolvers/premium-stats.resolver";
 import { ProfileResolver } from "./resolvers/profile.resolver";
 import { UserResolver } from "./resolvers/user.resolver";
@@ -72,13 +72,13 @@ export const routes: Routes = [
       { path: 'users/:userId', component: UserComponent, resolve: { userResponse: UserResolver } },
       { path: 'messenger', component: ConversationsComponent, resolve: { conversationsResponse: ConversationsResolver } },
       { path: 'messenger/:recipientId', component: MessagesThreadComponent, resolve: { messagesResponse: MessagesResolver } },
-      { path: 'orders', component: UserOrdersComponent, resolve: { ordersResponse: OrdersResolver } },
+      { path: 'orders', component: UserOrdersComponent, resolve: { ordersResponse: UserOrdersResolver } },
       { path: 'account/upgrade', component: PremiumPaymentComponent },
       { path: 'stats', component: PremiumStatsComponent, resolve: { statsResponse: PremiumStatsResolver }, data: { roles: roles.premium } },
       { path: 'admin', component: AdminPanelComponent, data: { roles: roles.admin } },
       { path: 'admin/stats', component: AdminStatsComponent, resolve: { statsResponse: AdminStatsResolver }, data: { roles: roles.admin } },
       { path: 'admin/logs', component: LogsComponent, resolve: { logsResponse: LogsResolver }, data: { roles: roles.admin } },
-      { path: 'admin/orders', component: AdminOrdersComponent, resolve: { ordersResponse: AllOrdersResolver }, data: { roles: roles.admin } }
+      { path: 'admin/orders', component: AdminOrdersComponent, resolve: { ordersResponse: OrdersResolver }, data: { roles: roles.admin } }
     ]
   },
   {

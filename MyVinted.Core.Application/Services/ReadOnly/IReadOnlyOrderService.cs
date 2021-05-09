@@ -8,7 +8,7 @@ namespace MyVinted.Core.Application.Services.ReadOnly
 {
     public interface IReadOnlyOrderService
     {
+        Task<IPagedList<Order>> GetOrders(GetOrdersRequest request);
         Task<IEnumerable<Order>> GetUserOrders(GetUserOrdersRequest request);
-        Task<IPagedList<Order>> GetAllOrders(GetAllOrdersRequest request);
     }
 }

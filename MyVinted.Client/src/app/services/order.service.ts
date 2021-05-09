@@ -17,11 +17,7 @@ export class OrderService {
 
   constructor(private httpClient: HttpClient, private stripeService: StripeService) { }
 
-  public getUserOrders(sortType: number = 0) {
-    return this.httpClient.get<any>(this.orderApiUrl + 'user/filter', { params: { sortType: sortType.toString() } })
-  }
-
-  public getAllOrders(ordersRequest: OrdersRequest) {
+  public getOrders(ordersRequest: OrdersRequest) {
     const paginatedResult: PaginatedResult<OrdersResponse> = new PaginatedResult<OrdersResponse>();
 
     const httpParams = this.createOrdersRequestParams(ordersRequest);
@@ -37,6 +33,10 @@ export class OrderService {
           return paginatedResult;
         })
       );
+  }
+
+  public getUserOrders(sortType: number = 0) {
+    return this.httpClient.get<any>(this.orderApiUrl + 'user/filter', { params: { sortType: sortType.toString() } })
   }
 
   public purchaseOrder(request: PaymentRequest) {

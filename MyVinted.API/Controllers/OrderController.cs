@@ -16,23 +16,23 @@ namespace MyVinted.API.Controllers
         {
         }
 
+        [HttpGet("filter")]
+        [Authorize(Policy = Constants.AdminPolicy)]
+        public async Task<IActionResult> GetOrders([FromQuery] GetOrdersRequest request)
+        {
+            var response = await mediator.Send(request);
+
+            Log.Information($"User #{HttpContext.GetCurrentUserId()} fetched admin orders history");
+
+            return this.CreateResponse(response);
+        }
+
         [HttpGet("user/filter")]
         public async Task<IActionResult> GetUserOrders([FromQuery] GetUserOrdersRequest request)
         {
             var response = await mediator.Send(request);
 
             Log.Information($"User #{HttpContext.GetCurrentUserId()} fetched their orders history");
-
-            return this.CreateResponse(response);
-        }
-
-        [HttpGet("filter")]
-        [Authorize(Policy = Constants.AdminPolicy)]
-        public async Task<IActionResult> GetAllOrders([FromQuery] GetAllOrdersRequest request)
-        {
-            var response = await mediator.Send(request);
-
-            Log.Information($"User #{HttpContext.GetCurrentUserId()} fetched admin orders history");
 
             return this.CreateResponse(response);
         }
