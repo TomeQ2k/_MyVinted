@@ -15,6 +15,6 @@ namespace MyVinted.Infrastructure.Shared.Services
         }
 
         public async Task<bool> HasEnoughFunds(string userId, decimal amount)
-            => (await unitOfWork.BalanceAccountRepository.Find(b => b.AccountId == userId)).Balance - (decimal)amount / Constants.MoneyMultiplier >= 0;
+            => (await unitOfWork.BalanceAccountRepository.Find(b => b.AccountId == userId))?.Balance - (decimal)amount / Constants.MoneyMultiplier >= 0;
     }
 }
