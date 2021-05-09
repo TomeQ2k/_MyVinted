@@ -1,0 +1,35 @@
+<ng-container *ngIf="!conversation?.lastMessage?.isCurrentUserSender; else yourLastMessage">
+  <div class="row border {{!conversation?.lastMessage?.isRead ? 'border-primary' : ''}} p-3 m-3"
+    [routerLink]="['/messenger/', conversation?.recipientId]" style="cursor: pointer;">
+    <div class="col-md-2">
+      <img [src]="conversation?.recipientAvatarUrl ? conversation?.recipientAvatarUrl :
+          '../../../../../../../assets/icons/question-mark.png'" alt="avatar" class="img img-fluid img-thumbnail">
+    </div>
+    <div class="col-md-10">
+      <div class="d-flex flex-row justify-content-between">
+        <h4>{{conversation?.recipientName}}</h4>
+        <span class="text-muted">{{conversation?.lastMessage?.dateSent | timeAgo}}</span>
+      </div>
+      <hr>
+      <span><strong>{{conversation?.lastMessage?.senderName}}: </strong></span>
+      <p [ngClass]="{'text-primary': !conversation?.lastMessage?.isRead}">{{conversation?.lastMessage?.text}}</p>
+    </div>
+  </div>
+</ng-container>
+<ng-template #yourLastMessage>
+  <div class="row border p-3 m-3" [routerLink]="['/messenger/', conversation?.recipientId]" style="cursor: pointer;">
+    <div class="col-md-2">
+      <img [src]="currentUserAvatarUrl ? currentUserAvatarUrl :
+          '../../../../../../../assets/icons/question-mark.png'" alt="avatar" class="img img-fluid img-thumbnail">
+    </div>
+    <div class="col-md-10">
+      <div class="d-flex flex-row justify-content-between">
+        <h4>{{conversation?.recipientName}}</h4>
+        <span class="text-muted">{{conversation?.lastMessage?.dateSent | timeAgo}}</span>
+      </div>
+      <hr>
+      <span><strong>YOU: </strong></span>
+      <p>{{conversation?.lastMessage?.text}}</p>
+    </div>
+  </div>
+</ng-template>

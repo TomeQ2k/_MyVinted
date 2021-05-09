@@ -1,0 +1,23 @@
+<ng-container *ngIf="notification?.isRead; else notReadCard">
+  <div class="card text-dark bg-white mb-3">
+    <div class="card-header">Sent: <span class="text-muted">{{notification?.dateCreated | timeAgo}}</span></div>
+    <div class="card-body">
+      <p class="card-text">{{notification?.text}}</p>
+    </div>
+    <div class="card-footer">
+      <button (click)="removeNotification()" class="btn btn-link text-danger">Delete</button>
+    </div>
+  </div>
+</ng-container>
+<ng-template #notReadCard>
+  <div class="card text-white bg-primary mb-3">
+    <div class="card-header">Sent: <span class="text-muted">{{notification?.dateCreated | timeAgo}}</span></div>
+    <div class="card-body">
+      <p class="card-text">{{notification?.text}}</p>
+    </div>
+    <div class="card-footer bg-white">
+      <button (click)="markAsRead()" class="btn btn-link text-success">Mark as read</button>
+      <button (click)="removeNotification()" class="btn btn-link text-danger">Delete</button>
+    </div>
+  </div>
+</ng-template>

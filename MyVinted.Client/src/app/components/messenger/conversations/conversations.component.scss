@@ -1,0 +1,6 @@
+@import "../../../../variables";
+
+.messages-container {
+  height: $chatHeight;
+  overflow-y: scroll;
+}

@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="col-md-8 mx-auto">
+    <div class="col text-center">
+      <h1>Account details</h1>
+      <h4>Email address: <strong>{{currentUser?.email}}</strong></h4>
+      <h4>Username: <strong>{{currentUser?.userName}}</strong></h4>
+      <h4 *ngIf="currentUser?.phoneNumber">Phone number: <strong>{{currentUser?.phoneNumber}}</strong></h4>
+      <h4 *ngIf="currentUser?.balance">Balance: {{currentUser?.balance}} $</h4>
+      <h4 *ngIf="currentUser?.isVerified">
+        <i class="fas fa-star"></i>
+        PREMIUM ACCOUNT
+        <i class="fas fa-star"></i>
+      </h4>
+    </div>
+    <hr>
+    <app-avatar-uploader [currentUser]="currentUser"></app-avatar-uploader>
+    <hr>
+    <ng-container *ngIf="!currentUser?.isExternalUser || currentUser?.isRegistered">
+      <app-change-password></app-change-password>
+      <hr>
+    </ng-container>
+    <ng-container *ngIf="!currentUser?.isExternalUser || currentUser?.isRegistered">
+      <app-change-email [currentUser]="currentUser"></app-change-email>
+      <hr>
+    </ng-container>
+    <app-change-username [currentUser]="currentUser"></app-change-username>
+    <hr>
+    <app-change-phone [currentUser]="currentUser"></app-change-phone>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <div class="image">
+        <img src="{{offer?.firstPhotoUrl}}" class="card-img img img-fluid full-width" alt="Offer photo">
+      </div>
+      <div *ngIf="offer?.isVerified" class="d-flex flex-row justify-content-center align-items-center m-2">
+        <i class="fas fa-star fa-2x"></i>
+        <span class="p-3">Verified</span>
+      </div>
+    </div>
+    <div class="col-md-8 p-3">
+      <div class="card-body">
+        <div class="d-flex flex-row justify-content-between">
+          <h5 class="card-title">{{offer?.title}}</h5>
+          <h5 class="text-primary">{{offer?.categoryName}}</h5>
+        </div>
+        <h5>{{offer?.price.toFixed(2)}} $</h5>
+        <p class="card-text">{{offer?.description}}</p>
+        <div class="col">
+          <span class="text-muted align-self-end">Last updated: <strong>{{offer?.dateUpdated | timeAgo}}</strong></span>
+          <hr>
+          <div class="row">
+            <span class="text-muted">Owner: <strong>{{offer?.ownerUserName}}</strong></span>
+          </div>
+          <div class="row">
+            <span class="text-muted">Email: <strong>{{offer?.ownerEmail}}</strong></span>
+          </div>
+          <div class="row">
+            <span *ngIf="offer?.ownerPhoneNumber" class="text-muted">Phone:
+              <strong>{{offer?.ownerPhoneNumber}}</strong></span>
+          </div>
+        </div>
+        <ng-container *ngIf="offer?.isBought || offer?.isBooked">
+          <hr>
+          <h6 *ngIf="offer?.isBought" class="text-success text-center">ITEM BOUGHT</h6>
+          <h6 *ngIf="offer?.isBooked" class="text-danger text-center">ITEM BOOKED</h6>
+        </ng-container>
+      </div>
+      <div class="card-footer bg-transparent d-flex flex-row flex-wrap justify-content-around">
+        <i *ngIf="offer?.ownerId !== currentUserId && !offer?.isBought"
+          class="{{ !isFavorite() ? 'far' : 'fas'}} fa-heart fa-2x text-primary m-1 touchable"
+          (click)="likeOffer()"><span class="ml-2">{{offer?.likesCount}}</span></i>
+        <a *ngIf="!isDetails" [routerLink]="['/offers/', offer?.id]" class="btn btn-outline-primary m-1">Details</a>
+        <ng-container *ngIf="isEditable">
+          <a [routerLink]="['/editOffer/', offer?.id]" class="btn btn-outline-dark m-1">Edit</a>
+          <button class="btn btn-outline-danger m-1" (click)="deleteOffer()">Delete</button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="col-md-12">
+  <h3 class="text-center">Opinions</h3>
+  <hr>
+  <ng-container *ngIf="opinions?.length >0; else emptyList">
+    <ng-container *ngFor="let opinion of opinions">
+      <app-opinion-card [opinion]="opinion" (opinionDeleted)="onOpinionDeleted($event)"></app-opinion-card>
+    </ng-container>
+  </ng-container>
+</div>
+<ng-template #emptyList>
+  <app-empty-list-info [message]="'Any opinions found...'"></app-empty-list-info>
+</ng-template>

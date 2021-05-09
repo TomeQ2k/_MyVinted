@@ -1,0 +1,38 @@
+@import "./variables";
+@import "~bootstrap/scss/bootstrap";
+@import "../node_modules/bootswatch/dist/minty/bootswatch";
+@import "~angular-notifier/styles";
+
+main {
+  padding: 3rem 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+a {
+  cursor: pointer;
+}
+
+.image {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100%;
+}
+
+.image img {
+  position: absolute;
+}
+
+input[type="checkbox"] {
+  -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+  transform: scale(2);
+}
+
+.touchable:hover {
+  opacity: $touchableOpacity;
+}

@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+  <a [routerLink]="['']" class="navbar-brand">
+    <img src="../../../assets/icons/myvinted-logo.png" class="img-fluid" alt="logo" width="50px">
+  </a>
+  <ng-container *ngIf="isSignedIn">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse d-lg-flex flex-lg-row justify-content-lg-around" id="navbar">
+      <ul class="navbar-nav">
+        <ng-container *ngIf="searchFormVisible">
+          <div class="d-flex flex-row flex-wrap justify-content-between">
+            <div>
+              <form class="form-inline my-2 my-lg-0" [formGroup]="filterForm">
+                <li class="nav-item dropdown">
+                  <fieldset class="form-group mr-2">
+                    <select class="form-control" formControlName="categoryId">
+                      <option [ngValue]="null">All</option>
+                      <ng-container *ngFor="let category of categories">
+                        <option [ngValue]="category?.id">{{category?.name}}</option>
+                      </ng-container>
+                    </select>
+                  </fieldset>
+                </li>
+                <fieldset class="form-group">
+                  <input class="form-control mr-2" formControlName="title" type="search" placeholder="Search..."
+                    aria-label="Search" style="min-width: 25vw;">
+                </fieldset>
+              </form>
+            </div>
+            <button class="btn btn-outline-dark my-2 my-sm-0 align-self-center" type="submit"
+              (click)="emitFilters()">Search</button>
+          </div>
+        </ng-container>
+      </ul>
+      <ul class="navbar-nav d-flex flex-row justify-content-around">
+        <li class="nav-item">
+          <a [routerLink]="['/favorites']" class="nav-link"><i class="fas fa-heart fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/myOffers']" class="nav-link"><i class="fas fa-tshirt fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/users']" class="nav-link"><i class="fas fa-user-friends fa-2x"></i></a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/messenger']" class="nav-link"><i class="fas fa-envelope fa-2x"></i>
+            <app-number-badge [number]="unreadMessagesCount"></app-number-badge>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/notifications']" class="nav-link"><i class="fas fa-bell fa-2x"></i>
+            <app-number-badge [number]="unreadNotificationsCount"></app-number-badge>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/cart']" class="nav-link"><i class="fas fa-shopping-cart fa-2x"></i></a>
+        </li>
+        <li class="nav-item dropdown ml-1">
+          <a class="nav-link dropdown-toggle {{avatarUrl ? 'p-1' : ''}}" id="profileDropdown" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ng-container *ngIf="avatarUrl; else avatarEmpty">
+              <img [src]="avatarUrl" alt="Avatar photo" class="avatar-img">
+            </ng-container>
+            <ng-template #avatarEmpty>
+              <i class="fas fa-user-circle fa-2x"></i>
+            </ng-template>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="profileDropdown">
+            <h5 class="text-muted text-center p-2">Hi <strong>{{userName}}</strong></h5>
+            <div class="dropdown-divider"></div>
+            <a [routerLink]="['/account']" class="dropdown-item">Account</a>
+            <a *ngIf="!isVerified" [routerLink]="['/account/upgrade']" class="dropdown-item">Upgrade account</a>
+            <a *appRequiredRoles="roles.premium" [routerLink]="['/stats']" class="dropdown-item">Statistics</a>
+            <div class="dropdown-divider"></div>
+            <a *appRequiredRoles="roles.admin" [routerLink]="['/admin']" class="dropdown-item">Admin panel</a>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+</nav>

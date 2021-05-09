@@ -1,0 +1,43 @@
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead class="thead-dark">
+      <tr class="text-center">
+        <th>#ID</th>
+        <th>Total price [$]</th>
+        <th>Date created</th>
+        <th *ngIf="adminView">Validated</th>
+        <th *ngIf="adminView">#User ID</th>
+        <th>Items</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let order of orders">
+        <tr>
+          <td>#{{order.id}}</td>
+          <td>{{(order.totalAmount / moneyMultiplier).toFixed(2)}} $</td>
+          <td>{{order.dateCreated | date: 'short'}}</td>
+          <td *ngIf="adminView">{{order?.isValidated ? 'VALIDATED' : 'NOT VALIDATED'}}</td>
+          <td *ngIf="adminView">#{{order?.userId}}</td>
+          <td>
+            <ng-container *ngIf="order.showItems; else itemsHidden">
+              <div class="text-center">
+                <i (click)="order.showItems = false" class="fas fa-chevron-up fa-2x"></i>
+              </div>
+              <ng-container *ngFor="let item of order?.items; index as i">
+                <div class="col">
+                  <span>#{{i + 1}} - {{item.productName}} | {{(item.amount / moneyMultiplier).toFixed(2)}} $ |
+                    {{getItemType(item.type)}}</span>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-template #itemsHidden>
+              <div class="text-center">
+                <i (click)="order.showItems = true" class="fas fa-chevron-down fa-2x"></i>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

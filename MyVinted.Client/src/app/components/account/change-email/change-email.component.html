@@ -1,0 +1,14 @@
+<div class="col-md-8 mx-auto">
+  <form [formGroup]="changeEmailForm">
+    <h3 class="text-center">Change email address</h3>
+    <fieldset class="form-group">
+      <label>Email address</label>
+      <input type="email" formControlName="newEmail" placeholder="Email address..." class="form-control" required>
+      <app-validation-error [errorTuple]="getValidationErrorTuple('newEmail')"></app-validation-error>
+    </fieldset>
+    <button type="submit" class="btn btn-success btn-block"
+      [disabled]="changeEmailForm.invalid || changeEmailForm.pristine" (click)="sendChangeEmailCallback()">Send change
+      email token</button>
+  </form>
+</div>
+<app-host-listener [form]="changeEmailForm"></app-host-listener>

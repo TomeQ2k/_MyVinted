@@ -1,0 +1,25 @@
+<div class="col">
+  <div class="text-center">
+    <h3>Opinion creator</h3>
+    <hr>
+    <div class="mb-3">
+      <ng-container *ngFor="let star of stars">
+        <ng-container *ngIf="star > rating; else checkedStar">
+          <i (click)="setRating(star)" class="far fa-star fa-2x touchable"></i>
+        </ng-container>
+        <ng-template #checkedStar>
+          <i (click)="setRating(star)" class="fas fa-star fa-2x touchable"></i>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+  <form [formGroup]="opinionForm">
+    <fieldset class="form-group">
+      <textarea class="form-control" formControlName="text" cols="30" rows="10" required
+        maxlength="{{constants.maxDescriptionLength}}" placeholder="Write your opinion..."></textarea>
+      <app-validation-error [errorTuple]="getValidationErrorTuple('text')"></app-validation-error>
+    </fieldset>
+    <button type="submit" class="btn btn-success btn-block" [disabled]="opinionForm.invalid" (click)="addOffer()">Add
+      opinion</button>
+  </form>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="col-md-12">
+    <app-user-card [user]="user" [isDetails]="true"></app-user-card>
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="text-center">User's offers</h3>
+        <hr>
+        <ng-container *ngIf="user?.offers?.length > 0; else emptyList">
+          <ng-container *ngFor="let offer of user?.offers">
+            <app-offer-card [offer]="offer" [isEditable]="offer?.ownerId === currentUserId"
+              (offerDeleted)="onOfferDeleted($event)"></app-offer-card>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="col-md-6">
+        <ng-container *ngIf="currentUserId !== user?.id && !currentUserOpinionExists()">
+          <app-opinion-form [userId]="user?.id" (opinionAdded)="onOpinionAdded($event)"></app-opinion-form>
+        </ng-container>
+        <hr>
+        <app-opinions [opinions]="user?.opinions" (opinionDeleted)="onOpinionDeleted($event)"></app-opinions>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #emptyList>
+  <app-empty-list-info [message]="'Any offers found...'"></app-empty-list-info>
+</ng-template>

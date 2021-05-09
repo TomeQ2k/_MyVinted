@@ -1,0 +1,14 @@
+<div class="col-md-8 mx-auto d-flex flex-column align-items-center">
+  <img src="{{currentUser?.avatarUrl ? currentUser?.avatarUrl :
+  '../../../../../../assets/icons/question-mark.png'}}" alt="avatar" class="img img-fluid img-thumbnail full-width">
+  <ng-container *ngIf="currentUser?.isRegistered">
+    <div class="d-flex flex-row flex-wrap justify-content-center mt-3">
+      <button class="btn btn-success m-1" type="button" (click)="fileInput.click()">
+        <input type="file" #fileInput class="d-none" (change)="setAvatar(fileInput.files[0])"
+          accept=".img,.png,.jpg,.jpeg,.tiff,.ico,.svg">
+        Change avatar
+      </button>
+      <button (click)="deleteAvatar()" class="btn btn-danger m-1">Delete avatar</button>
+    </div>
+  </ng-container>
+</div>

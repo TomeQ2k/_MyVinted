@@ -1,0 +1,4 @@
+<form class="m-3" [formGroup]="paymentForm">
+  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions" (change)="stripeCard.emit(card)">
+  </ngx-stripe-card>
+</form>

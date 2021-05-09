@@ -1,0 +1,14 @@
+<div class="col-md-4 mx-auto mt-3">
+  <button *ngIf="!multiple" class="btn btn-success btn-block" type="button" (click)="fileInput.click()"
+    [disabled]="currentCount === constants.maxFilesCount">
+    <input type="file" #fileInput class="d-none" accept=".img,.png,.jpg,.jpeg,.tiff,.ico,.svg"
+      (change)="photosUploaded.emit(fileInput.files)">
+    Upload photo
+  </button>
+  <button *ngIf="multiple" class="btn btn-success btn-block" type="button" (click)="fileInput.click()"
+    [disabled]="currentCount === constants.maxFilesCount">
+    <input type="file" #fileInput class="d-none" accept=".img,.png,.jpg,.jpeg,.tiff,.ico,.svg" multiple
+      (change)="photosUploaded.emit(fileInput.files)">
+    Upload photos
+  </button>
+</div>

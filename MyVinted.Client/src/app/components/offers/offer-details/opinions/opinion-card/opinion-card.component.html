@@ -1,0 +1,19 @@
+ <div class="card text-dark bg-white mb-3">
+   <div class="card-header d-flex flex-row justify-content-between">
+     <p>Added: {{opinion?.dateAdded | date: 'short'}}</p>
+     <div class="row">
+       <ng-container *ngFor="let star of stars">
+         <i class="fas fa-star fa-2x"></i>
+       </ng-container>
+     </div>
+   </div>
+   <div class="card-body">
+     <p class="card-text">{{opinion?.text}}
+     </p>
+   </div>
+   <div class="card-footer d-flex flex-row justify-content-around align-items-baseline">
+     <button *ngIf="currentUserId === opinion?.creatorId" (click)="deleteOpinion()"
+       class="btn btn-link text-danger">Delete</button>
+     <span class="text-muted">{{opinion?.creatorUserName}}</span>
+   </div>
+ </div>

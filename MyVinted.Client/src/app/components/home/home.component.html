@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <ng-container *ngIf="offers?.length > 0; else emptyList">
+        <ng-container *ngFor="let offer of offers">
+          <app-offer-card [offer]="offer"></app-offer-card>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="col-md-3 order-first order-sm-first order-md-last mb-3">
+      <app-offers-filter-form></app-offers-filter-form>
+      <hr>
+      <app-add-offer-button></app-add-offer-button>
+    </div>
+  </div>
+  <app-pagination [items]="offers" [pagination]="pagination" (pageChanged)="onPageChanged($event)" [align]="align.RIGHT"
+    [displayCurrentPageInfo]="true" [displayPageSizeInfo]="true"></app-pagination>
+</div>
+<ng-template #emptyList>
+  <app-empty-list-info [message]="'Any offers found...'"></app-empty-list-info>
+</ng-template>

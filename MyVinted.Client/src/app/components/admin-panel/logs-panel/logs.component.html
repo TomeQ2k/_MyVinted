@@ -1,0 +1,119 @@
+<div class="container">
+  <div class="col-md-12">
+    <h1>Logs</h1>
+    <hr>
+    <form [formGroup]="filterForm">
+      <div class="row">
+        <div class="col-md-6">
+          <fieldset class="form-group">
+            <label>Logs file date</label>
+            <input type="date" class="form-control" formControlName="date" placeholder="Select logs file date..."
+              required max="{{maxDate | date: 'yyyy-MM-dd'}}">
+            <app-validation-error [errorTuple]="getValidationErrorTuple('date')"></app-validation-error>
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Min time</label>
+            <input type="time" class="form-control" formControlName="minTime" placeholder="Select min time...">
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Max time</label>
+            <input type="time" class="form-control" formControlName="maxTime" placeholder="Select max time...">
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Sort type</label>
+            <select formControlName="sortType" class="form-control">
+              <option [ngValue]="0">Date &darr;</option>
+              <option [ngValue]="1">Date &uarr;</option>
+            </select>
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Level</label>
+            <select formControlName="level" class="form-control">
+              <option [ngValue]="null">ALL</option>
+              <option [ngValue]="'Verbose'">VERBOSE</option>
+              <option [ngValue]="'Debug'">DEBUG</option>
+              <option [ngValue]="'Information'">INFORMATION</option>
+              <option [ngValue]="'Warning'">WARNING</option>
+              <option [ngValue]="'Error'">ERROR</option>
+              <option [ngValue]="'Fatal'">FATAL</option>
+            </select>
+          </fieldset>
+          <button type="submit" class="btn btn-outline-primary btn-block" (click)="filterLogs()">Filter</button>
+        </div>
+        <div class="col-md-6">
+          <fieldset class="form-group">
+            <label>Message</label>
+            <input type="text" class="form-control" formControlName="message" placeholder="Message...">
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Request path</label>
+            <input type="text" class="form-control" formControlName="requestPath" placeholder="Request path...">
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Status code</label>
+            <input type="number" class="form-control" formControlName="statusCode" placeholder="Status code..."
+              step="1">
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Request method</label>
+            <select formControlName="requestMethod" class="form-control">
+              <option [ngValue]="null">ALL</option>
+              <option [ngValue]="'GET'">GET</option>
+              <option [ngValue]="'POST'">POST</option>
+              <option [ngValue]="'PUT'">PUT</option>
+              <option [ngValue]="'PATCH'">PATCH</option>
+              <option [ngValue]="'DELETE'">DELETE</option>
+            </select>
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Exception</label>
+            <input type="text" class="form-control" formControlName="exception" placeholder="Exception...">
+          </fieldset>
+          <button class="btn btn-outline-danger btn-block" (click)="clearFilters()">Clear</button>
+        </div>
+      </div>
+    </form>
+    <hr>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr class="text-center">
+            <th>Date</th>
+            <th>Message</th>
+            <th>Level</th>
+            <th>Request method</th>
+            <th>Request path</th>
+            <th>Status code</th>
+            <th>Elapsed [ms]</th>
+            <th>Exception</th>
+            <th>Source context</th>
+            <th>Request ID</th>
+            <th>Connection ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let log of logs">
+            <tr>
+              <td>{{log?.date | date: 'medium'}}</td>
+              <td>{{log?.message}}</td>
+              <td>{{log?.level}}</td>
+              <td>{{log?.requestMethod}}</td>
+              <td>{{log?.requestPath}}</td>
+              <td>{{log?.statusCode}}</td>
+              <td>{{log?.elapsed}}</td>
+              <td>{{log?.exception}}</td>
+              <td>{{log?.sourceContext}}</td>
+              <td>{{log?.requestId}}</td>
+              <td>{{log?.connectionId}}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mt-3">
+    <app-pagination [items]="logs" [pagination]="pagination" (pageChanged)="onPageChanged($event)" [align]="align.RIGHT"
+      [displayCurrentPageInfo]="true" [displayPageSizeInfo]="true" [displayTotalCountInfo]="true"
+      [displayTotalPagesInfo]="true"></app-pagination>
+  </div>
+</div>

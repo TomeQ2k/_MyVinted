@@ -1,0 +1,12 @@
+  <form [formGroup]="messageForm" class="d-flex flex-row flex-wrap mt-3">
+    <fieldset class="form-group col-md-10">
+      <input type="text" formControlName="text" class="form-control" placeholder="Write message..." required
+        maxlength="{{constants.maxMessageLength}}">
+      <app-validation-error [errorTuple]="getValidationErrorTuple('text')"></app-validation-error>
+      <app-letters-limiter
+        [inputData]="{count: messageForm.get('text').value?.length, maxCount: constants.maxMessageLength}">
+      </app-letters-limiter>
+    </fieldset>
+    <button class="btn btn-outline-primary mb-3 col-md-2" type="submit" [disabled]="messageForm.invalid"
+      (click)="sendMessage()">Send</button>
+  </form>

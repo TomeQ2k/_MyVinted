@@ -1,0 +1,28 @@
+<form [formGroup]="filterForm">
+  <h3 class="text-center">Filters</h3>
+  <hr>
+  <fieldset class="form-group">
+    <label>Sort type</label>
+    <select class="form-control" formControlName="sortType">
+      <option [ngValue]="0">Verified &darr;</option>
+      <option [ngValue]="1">Newest &darr;</option>
+      <option [ngValue]="2">Oldest &uarr;</option>
+      <option [ngValue]="3">Price [$] &uarr;</option>
+      <option [ngValue]="4">Price [$] &darr;</option>
+    </select>
+  </fieldset>
+  <fieldset class="form-group">
+    <label>Bought status</label>
+    <select class="form-control" formControlName="boughtOfferStatus">
+      <option [ngValue]="0">All</option>
+      <option [ngValue]="1">Not bought</option>
+      <option [ngValue]="2">Bought</option>
+    </select>
+  </fieldset>
+  <fieldset class="form-group d-flex flex-row justify-content-around align-items-baseline">
+    <label>Only verified</label>
+    <input type="checkbox" formControlName="onlyVerified">
+  </fieldset>
+  <button type="submit" class="btn btn-outline-primary btn-block" (click)="emitFilters()">Filter</button>
+  <button type="button" class="btn btn-outline-danger btn-block" (click)="clearFilters()">Clear</button>
+</form>

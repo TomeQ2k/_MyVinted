@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="col-md-12">
+    <div class="d-flex flex-row justify-content-around">
+      <h1>Orders history</h1>
+      <form [formGroup]="sortForm">
+        <fieldset class="form-group">
+          <label>Sort type</label>
+          <select formControlName="sortType" class="form-control" (change)="onSortChanged()">
+            <option [ngValue]="0">Date &darr;</option>
+            <option [ngValue]="1">Date &uarr;</option>
+            <option [ngValue]="2">Price &darr;</option>
+            <option [ngValue]="3">Price &uarr;</option>
+          </select>
+        </fieldset>
+      </form>
+    </div>
+    <hr>
+    <app-orders [orders]="orders"></app-orders>
+    <a [routerLink]="['/cart']" class="btn btn-link">
+      <h5>Back to cart</h5>
+    </a>
+  </div>
+</div>

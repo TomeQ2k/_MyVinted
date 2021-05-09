@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\MyVinted.Core.Domain\MyVinted.Core.Domain.csproj" />
+		<ProjectReference Include="..\MyVinted.Core.Application\MyVinted.Core.Application.csproj" />
+	</ItemGroup>
+</Project>

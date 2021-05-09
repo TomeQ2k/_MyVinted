@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="col">
+    <div class="d-flex flex-row justify-content-around align-items-center border rounded p-2">
+      <h2 [routerLink]="['/users/', recipient?.id]">{{recipient?.userName}}</h2>
+      <img [routerLink]="['/users/', recipient?.id]" [src]="recipient?.avatarUrl ? recipient?.avatarUrl :
+          '../../../../../../../assets/icons/question-mark.png'" alt="avatar" class="img img-fluid img-thumbnail">
+    </div>
+    <ng-container infiniteScroll [fromRoot]="true" [infiniteScrollContainer]="'.messages-container'"
+      [infiniteScrollUpDistance]="5" [infiniteScrollThrottle]="0" (scrolledUp)="onScroll()">
+      <section class="messages-container border rounded mt-3" #chat>
+        <ng-container *ngFor="let message of messages">
+          <div class="col-md-12">
+            <app-message-card [message]="message" (messageDeleted)="onDeleteMessage($event)"></app-message-card>
+          </div>
+        </ng-container>
+      </section>
+    </ng-container>
+    <app-message-form [recipientId]="recipient?.id" (messageSent)="onMessageSent($event)"></app-message-form>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+@import "../../../../variables";
+
+img {
+  width: 150px;
+  height: 150px;
+
+  cursor: pointer;
+}
+
+h2 {
+  cursor: pointer;
+}
+
+.messages-container {
+  height: $chatHeight;
+  overflow-y: scroll;
+}

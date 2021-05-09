@@ -1,0 +1,25 @@
+ <h4 class="text-center mb-3">Current price: {{offer?.price.toFixed(2)}} $</h4>
+ <form [formGroup]="auctionForm" class="mx-auto m-3">
+   <button *ngIf="offer?.ownerId !== currentUserId" type="button" class="btn btn-outline-dark btn-block mb-3"
+     (click)="addToCart()">Add to cart</button>
+   <ng-container *ngIf="(!offer?.offerAuction || offer?.offerAuction?.isAccepted) && currentUserId !== offer?.ownerId">
+     <ng-container *ngIf="offer?.price > 1 && offer?.allowBidding">
+       <fieldset class="form-group">
+         <input type="number" formControlName="newPrice" placeholder="Propose new price..." class="form-control"
+           required min="1" step="0.01" max="{{(offer?.price - 0.01)}}" numeric decimals="2">
+         <app-validation-error [errorTuple]="getValidationErrorTuple('newPrice')"></app-validation-error>
+       </fieldset>
+       <button type="submit" class="btn btn-outline-success btn-block" [disabled]="auctionForm.invalid"
+         (click)="proposePrice()">Propose
+         price</button>
+     </ng-container>
+   </ng-container>
+ </form>
+ <ng-container *ngIf="offer?.offerAuction && !offer?.offerAuction?.isAccepted && currentUserId === offer?.ownerId">
+   <h4 class="text-center mb-3">Proposed price: {{offer?.offerAuction?.newPrice.toFixed(2)}} $</h4>
+   <button type="button" class="btn btn-outline-success btn-block" (click)="acceptAuction()">Accept</button>
+   <button type="button" class="btn btn-outline-danger btn-block" (click)="denyAuction()">Deny</button>
+ </ng-container>
+ <ng-container *ngIf="offer?.offerAuction && !offer?.offerAuction?.isAccepted && currentUserId !== offer?.ownerId">
+   <h5 class="text-center">Auction is currently waiting for offer owner response</h5>
+ </ng-container>

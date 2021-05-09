@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="col-md-12 mx-auto">
+    <h1>{{offer?.title}}</h1>
+    <hr>
+    <app-offer-card [offer]="offer" [isEditable]="currentUserId === offer?.ownerId" [isDetails]="true"
+      (offerDeleted)="onOfferDeleted()">
+    </app-offer-card>
+    <div class="d-flex flex-row justify-content-center align-items-center">
+      <div class="col-md-6">
+        <h3 class="text-center">Photos gallery</h3>
+        <hr>
+        <app-photos-gallery [photos]="photos"></app-photos-gallery>
+      </div>
+      <ng-container *ngIf="!offer?.isBooked && !offer?.isBought">
+        <div class="col-md-6">
+          <app-auction-form [offer]="offer"></app-auction-form>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

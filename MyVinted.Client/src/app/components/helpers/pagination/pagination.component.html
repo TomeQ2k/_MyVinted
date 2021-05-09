@@ -1,0 +1,42 @@
+ <div class="{{align === alignEnum.LEFT ? 'float-left' : 'float-right'}}">
+   <ul class="pagination">
+     <li *ngIf="pagination.currentPage - 1 > 1" class="page-item">
+       <a (click)="firstPage()" class="page-link" aria-label="First">
+         <span aria-hidden="true">&laquo;</span>
+         <span class="sr-only">Previous</span>
+       </a>
+     </li>
+     <li *ngIf="pagination.currentPage > 1" class="page-item">
+       <a (click)="previousPage()" class="page-link" aria-label="Previous">
+         <span aria-hidden="true">&lt;</span>
+         <span class="sr-only">Previous</span>
+       </a>
+     </li>
+     <li *ngIf="pagination.currentPage - 1 >= 1" class="page-item"><a (click)="page(pagination.currentPage - 1)"
+         class="page-link">{{pagination.currentPage - 1}}</a>
+     </li>
+     <li class="page-item"><a (click)="page(pagination.currentPage)" class="page-link">{{pagination.currentPage}}</a>
+     </li>
+     <li *ngIf="pagination.currentPage + 1 <= pagination.totalPages" class="page-item"><a
+         (click)="page(pagination.currentPage + 1)" class="page-link">{{pagination.currentPage + 1}}</a>
+     </li>
+     <li *ngIf="pagination.totalPages > pagination.currentPage" class="page-item">
+       <a (click)="nextPage()" class="page-link" aria-label="Next">
+         <span aria-hidden="true">&gt;</span>
+         <span class="sr-only">Next</span>
+       </a>
+     </li>
+     <li *ngIf="pagination.totalPages > pagination.currentPage + 1" class="page-item">
+       <a (click)="lastPage()" class="page-link" aria-label="Last">
+         <span aria-hidden="true">&raquo;</span>
+         <span class="sr-only">Next</span>
+       </a>
+     </li>
+   </ul>
+   <div class="d-flex flex-column justify-content-center align-items-center">
+     <small *ngIf="displayCurrentPageInfo">Current page: {{pagination.currentPage}}</small>
+     <small *ngIf="displayPageSizeInfo">Page size: {{pagination.itemsPerPage}}</small>
+     <small *ngIf="displayTotalPagesInfo">Total pages: {{pagination.totalPages}}</small>
+     <small *ngIf="displayTotalCountInfo">Total items: {{pagination.totalItems}}</small>
+   </div>
+ </div>

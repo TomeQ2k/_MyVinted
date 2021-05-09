@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="col-md-12">
+    <div class="d-flex flex-row justify-content-around">
+      <h1>Admin orders history</h1>
+      <form [formGroup]="filterForm">
+        <div class="d-flex flex-row justify-content-between">
+          <fieldset class="form-group m-2">
+            <label>Sort type</label>
+            <select formControlName="sortType" class="form-control" (change)="onFilterChanged()">
+              <option [ngValue]="0">Date &darr;</option>
+              <option [ngValue]="1">Date &uarr;</option>
+              <option [ngValue]="2">Price &darr;</option>
+              <option [ngValue]="3">Price &uarr;</option>
+            </select>
+          </fieldset>
+          <fieldset class="form-group m-2">
+            <label>Validated status</label>
+            <select formControlName="validatedStatus" class="form-control" (change)="onFilterChanged()">
+              <option [ngValue]="0">All</option>
+              <option [ngValue]="1">Validated</option>
+              <option [ngValue]="2">Not validated</option>
+            </select>
+          </fieldset>
+        </div>
+        <fieldset class="form-group m-2">
+          <label>Login</label>
+          <input type="text" formControlName="login" class="form-control" placeholder="Username/Email address..."
+            (change)="onFilterChanged()" />
+        </fieldset>
+        <button class="btn btn-outline-danger w-100 m-2 mx-auto" (click)="clearFilters()">Clear</button>
+      </form>
+    </div>
+    <hr>
+    <app-orders [orders]="orders" [adminView]="true"></app-orders>
+    <a [routerLink]="['/admin']" class="btn btn-link">
+      <h5>Back to admin panel</h5>
+    </a>
+  </div>
+  <div class="mt-3">
+    <app-pagination [items]="orders" [pagination]="pagination" (pageChanged)="onPageChanged($event)"
+      [align]="align.RIGHT" [displayCurrentPageInfo]="true" [displayPageSizeInfo]="true" [displayTotalCountInfo]="true"
+      [displayTotalPagesInfo]="true"></app-pagination>
+  </div>
+</div>

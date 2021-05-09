@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="col-md-8 mx-auto">
+    <h1>Admin panel</h1>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">Application statistics
+        <a [routerLink]="['/admin/stats']" class="btn btn-link">Open statistics</a>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">Logs
+        <a [routerLink]="['/admin/logs']" class="btn btn-link">Open logs</a>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">Orders history
+        <a [routerLink]="['/admin/orders']" class="btn btn-link">Open orders history</a>
+      </li>
+    </ul>
+    <a [routerLink]="['']" class="btn btn-outline-dark btn-block mt-3">Back to home page</a>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\MyVinted.Core.Application\MyVinted.Core.Application.csproj" />
+	  <ProjectReference Include="..\MyVinted.Core.Common\MyVinted.Core.Common.csproj" />
+	  <ProjectReference Include="..\MyVinted.Core.Domain\MyVinted.Core.Domain.csproj" />
+	</ItemGroup>
+</Project>

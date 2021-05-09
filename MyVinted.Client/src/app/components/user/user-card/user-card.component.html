@@ -1,0 +1,52 @@
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <div class="image">
+        <img [src]="user?.avatarUrl ? user?.avatarUrl : '../../../../assets/icons/question-mark.png'"
+          class="card-img img img-fluid full-width p-2" alt="User photo">
+      </div>
+      <div *ngIf="user?.isVerified" class="d-flex flex-row justify-content-center align-items-center m-2">
+        <i class="fas fa-star fa-2x"></i>
+        <span class="p-3">Verified</span>
+      </div>
+      <ng-container *ngIf="canToggleBlockAccount()">
+        <div class="text-center m-3">
+          <button (click)="toggleBlockStatus()"
+            class="btn {{user?.isBlocked ? 'btn-success' : 'btn-danger'}} mx-auto">{{user?.isBlocked ? 'Unblock account' :'Block account'}}</button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-md-8 p-3">
+      <div class="card-body">
+        <h5 class="card-title">Username: <strong>{{user?.userName}}</strong></h5>
+        <h5 class="card-title">Email: <strong>{{user?.email}}</strong></h5>
+        <h5 class="card-title">Phone number: <strong>{{user?.phoneNumber}}</strong></h5>
+      </div>
+      <div class="card-footer bg-transparent d-flex flex-row justify-content-around">
+        <i *ngIf="user?.id !== currentUserId; else heartNotTouchable" (click)="followUser()"
+          class="{{ !isFollowed() ? 'far' : 'fas' }} fa-heart fa-2x text-primary touchable"><span
+            class="ml-2">{{user?.followsCount}}</span></i>
+        <i class="fas fa-star fa-2x text-primary"><span class="ml-2">{{user?.rating}}</span></i>
+        <i class="fas fa-comment fa-2x text-primary"><span class="ml-2">{{user?.opinionsCount}}</span></i>
+        <a *ngIf="!isDetails" [routerLink]="['/users/', user?.id]" class="btn btn-outline-primary">Details</a>
+      </div>
+      <ng-container *ngIf="user?.id !== currentUserId">
+        <div class="col-md-3 mx-auto mt-3">
+          <button *ngIf="!writeMessageMode; else cancelButton" class="btn btn-outline-dark btn-block">
+            <i class="far fa-envelope fa-2x" (click)="toggleWriteMessageMode()">
+            </i></button>
+          <ng-template #cancelButton>
+            <button class="btn btn-outline-danger btn-block">
+              <i class="fas fa-times fa-2x" (click)="toggleWriteMessageMode()"></i></button>
+          </ng-template>
+        </div>
+        <ng-container *ngIf="writeMessageMode">
+          <app-message-form [recipientId]="user?.id" (messageSent)="onMessageSent()"></app-message-form>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<ng-template #heartNotTouchable>
+  <i class="fas fa-heart fa-2x text-primary"><span class="ml-2">{{user?.followsCount}}</span></i>
+</ng-template>

@@ -1,0 +1,18 @@
+<div class="col-md-8 mx-auto">
+  <form [formGroup]="changePhoneForm">
+    <h3 class="text-center">Change phone number</h3>
+    <fieldset class="form-group">
+      <label>Phone number</label>
+      <input type="tel" formControlName="newPhoneNumber" placeholder="Phone number..." class="form-control" required
+        maxlength="{{constants.maxPhoneNumberLength}}">
+      <app-letters-limiter [inputData]="{count: changePhoneForm.get('newPhoneNumber').value?.length, maxCount:
+        constants.maxPhoneNumberLength}">
+      </app-letters-limiter>
+      <app-validation-error [errorTuple]="getValidationErrorTuple('newPhoneNumber')"></app-validation-error>
+    </fieldset>
+    <button type="submit" class="btn btn-success btn-block"
+      [disabled]="changePhoneForm.invalid || changePhoneForm.pristine" (click)="changePhoneNumber()">Change phone
+      number</button>
+  </form>
+</div>
+<app-host-listener [form]="changePhoneForm"></app-host-listener>

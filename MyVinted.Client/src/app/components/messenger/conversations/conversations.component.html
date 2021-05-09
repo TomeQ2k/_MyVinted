@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="col mx-auto">
+    <h1>Conversations</h1>
+    <form [formGroup]="filtersForm" class="d-flex flex-row justify-content-between align-items-center">
+      <fieldset class="form-group col-md-8">
+        <label>Recipient username</label>
+        <input type="search" formControlName="userName" placeholder="Search by username..." class="form-control">
+      </fieldset>
+      <button type="submit" class="btn btn-outline-primary" (click)="onFiltersChanged()">Search</button>
+    </form>
+    <hr>
+    <ng-container *ngIf="conversations?.length > 0; else emptyList">
+      <ng-container infiniteScroll [fromRoot]="true" [infiniteScrollContainer]="'.messages-container'"
+        [infiniteScrollDistance]="5" [infiniteScrollThrottle]="0" (scrolled)="onScroll()">
+        <section class="messages-container mt-3" #chat>
+          <ng-container *ngFor="let conversation of conversations">
+            <app-conversation-card [conversation]="conversation"></app-conversation-card>
+          </ng-container>
+        </section>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
+<ng-template #emptyList>
+  <app-empty-list-info [message]="'Any conversations found...'"></app-empty-list-info>
+</ng-template>

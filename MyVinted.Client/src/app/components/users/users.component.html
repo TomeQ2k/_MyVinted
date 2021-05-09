@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <h1>Users</h1>
+      <hr>
+      <ng-container *ngIf="users?.length > 0; else emptyList">
+        <ng-container *ngFor="let user of users">
+          <app-user-card [user]="user"></app-user-card>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="col-md-3 order-first order-sm-first order-md-last mb-3">
+      <app-users-filters-form></app-users-filters-form>
+    </div>
+  </div>
+  <div class="mt-3">
+    <app-pagination [items]="users" [pagination]="pagination" (pageChanged)="onPageChanged($event)"
+      [align]="align.RIGHT" [displayCurrentPageInfo]="true" [displayPageSizeInfo]="true"></app-pagination>
+  </div>
+</div>
+<ng-template #emptyList>
+  <app-empty-list-info [message]="'Any users found...'"></app-empty-list-info>
+</ng-template>
