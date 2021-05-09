@@ -19,7 +19,7 @@ namespace MyVinted.API.Controllers
         {
             var response = await mediator.Send(request);
 
-            Log.Information($"User #{HttpContext.GetCurrentUserId()} fetched their notification");
+            Log.Information($"User #{HttpContext.GetCurrentUserId()} fetched their notifications");
 
             return this.CreateResponse(response);
         }
