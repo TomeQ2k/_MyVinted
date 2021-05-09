@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using MyVinted.Core.Application.Models;
+using Serilog;
 
 namespace MyVinted.Core.Application.Filters
 {
@@ -52,6 +53,8 @@ namespace MyVinted.Core.Application.Filters
             context.HttpContext.Response.AddApplicationError(errorMessage);
 
             await context.HttpContext.Response.WriteAsync(jsonResponse);
+            
+            Log.Information($"{context.Exception.GetType().Name}: {errorMessage} [{errorCode}] [HTTP {(int)statusCode}]");
 
             await base.OnExceptionAsync(context);
         }
