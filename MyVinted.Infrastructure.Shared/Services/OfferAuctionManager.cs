@@ -4,6 +4,7 @@ using MyVinted.Core.Domain.Data;
 using MyVinted.Core.Common.Helpers;
 using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
+using MyVinted.Infrastructure.Shared.Specifications;
 
 namespace MyVinted.Infrastructure.Shared.Services
 {
@@ -28,13 +29,13 @@ namespace MyVinted.Infrastructure.Shared.Services
             var offer = await unitOfWork.OfferRepository.Get(offerId) ??
                         throw new EntityNotFoundException("Offer not found");
 
-            if (!offer.AllowBidding)
+            if (!OfferAllowBiddingSpecification.Create().IsSatisfied(offer))
                 throw new NoPermissionsException("You are not allowed to perform this action");
 
-            if (offer.BookingUserId != null)
+            if (OfferBookedSpecification.Create().IsSatisfied(offer))
                 throw new ServerException("Offer is currently booked");
 
-            if (offer.Price == 1)
+            if (OfferTheLowestPriceSpecification.Create().IsSatisfied(offer))
                 throw new ServerException("Current price is minimum allowed price");
 
             if (currentUserId == offer.OwnerId)
@@ -44,7 +45,7 @@ namespace MyVinted.Infrastructure.Shared.Services
 
             if (offer.OfferAuction != null)
             {
-                if (!offer.OfferAuction.IsAccepted)
+                if (!OfferAuctionAcceptedSpecification.Create().IsSatisfied(offer.OfferAuction))
                     throw new ServerException("Auction is currently waiting for offer owner response");
 
                 offer.OfferAuction.Update(newPrice: newPrice);
@@ -71,13 +72,13 @@ namespace MyVinted.Infrastructure.Shared.Services
                 await unitOfWork.OfferAuctionRepository.Find(a => a.Id == auctionId && a.OfferId == offerId)
                 ?? throw new EntityNotFoundException("Auction not found");
 
-            if (!offerAuction.Offer.AllowBidding)
+            if (!OfferAllowBiddingSpecification.Create().IsSatisfied(offerAuction.Offer))
                 throw new NoPermissionsException("You are not allowed to perform this action");
 
-            if (offerAuction.Offer.BookingUserId != null)
+            if (OfferBookedSpecification.Create().IsSatisfied(offerAuction.Offer))
                 throw new ServerException("Offer is currently booked");
 
-            if (offerAuction.IsAccepted)
+            if (OfferAuctionAcceptedSpecification.Create().IsSatisfied(offerAuction))
                 throw new ServerException("Offer auction is already accepted");
 
             offerAuctionValidationService.ValidateOwnerPermissions(offerAuction.Offer.OwnerId, currentUserId);
@@ -99,13 +100,13 @@ namespace MyVinted.Infrastructure.Shared.Services
                 await unitOfWork.OfferAuctionRepository.Find(a => a.Id == auctionId && a.OfferId == offerId)
                 ?? throw new EntityNotFoundException("Auction not found");
 
-            if (!offerAuction.Offer.AllowBidding)
+            if (!OfferAllowBiddingSpecification.Create().IsSatisfied(offerAuction.Offer))
                 throw new NoPermissionsException("You are not allowed to perform this action");
 
-            if (offerAuction.Offer.BookingUserId != null)
+            if (OfferBookedSpecification.Create().IsSatisfied(offerAuction.Offer))
                 throw new ServerException("Offer is currently booked");
 
-            if (offerAuction.IsAccepted)
+            if (OfferAuctionAcceptedSpecification.Create().IsSatisfied(offerAuction))
                 throw new ServerException("Offer auction is already accepted");
 
             offerAuctionValidationService.ValidateOwnerPermissions(offerAuction.Offer.OwnerId, currentUserId);

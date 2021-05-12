@@ -4,10 +4,10 @@ using MyVinted.Core.Application.Services;
 using MyVinted.Core.Application.Services.ReadOnly;
 using MyVinted.Core.Domain.Data;
 using MyVinted.Core.Common.Helpers;
-using System.Linq;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
+using MyVinted.Infrastructure.Shared.Specifications;
 
 namespace MyVinted.Infrastructure.Shared.Services
 {
@@ -35,7 +35,7 @@ namespace MyVinted.Infrastructure.Shared.Services
             var user = await unitOfWork.UserRepository.Get(userId) ??
                        throw new EntityNotFoundException("User not found");
 
-            if (user.Opinions.Any(o => o.CreatorId == currentUser.Id))
+            if (AddedOneOpinionPerUserSpecification.Create(currentUser.Id).IsSatisfied(user))
                 throw new DuplicateException("You are allowed to add only one opinion per user");
 
             var opinion = new OpinionBuilder()

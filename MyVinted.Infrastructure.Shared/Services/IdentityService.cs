@@ -5,6 +5,7 @@ using MyVinted.Core.Common.Enums;
 using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
 using IdentityResult = MyVinted.Core.Application.Results.IdentityResult;
+using MyVinted.Infrastructure.Shared.Specifications;
 
 namespace MyVinted.Infrastructure.Shared.Services
 {
@@ -30,7 +31,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         {
             var user = await userManager.FindByEmailAsync(email) ?? throw new InvalidCredentialsException("Invalid email address or password");
 
-            if (user.IsExternal() && !user.IsRegistered())
+            if (UserIsExternalSpecification.Create().IsSatisfied(user))
                 throw new InvalidCredentialsException("Invalid email address or password");
 
             if (!user.EmailConfirmed)

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
 using MyVinted.Core.Domain.Data.Models;
+using MyVinted.Infrastructure.Shared.Specifications;
 
 namespace MyVinted.Infrastructure.Shared.Services
 {
@@ -75,7 +76,7 @@ namespace MyVinted.Infrastructure.Shared.Services
 
             if (photos != null)
             {
-                if (photos.Count() + offerToUpdate.OfferPhotos.Count <= Constants.MaxFilesCount)
+                if (MaxOfferPhotosCountSpecification.Create(photos.Count()).IsSatisfied(offerToUpdate))
                     await UploadOfferPhotos(photos, offerToUpdate.Id);
                 else
                     throw new UploadFileException($"Maximum files count is: {Constants.MaxFilesCount}");
@@ -94,7 +95,7 @@ namespace MyVinted.Infrastructure.Shared.Services
             if (offerPhoto.OfferId != offerId)
                 throw new NoPermissionsException(ErrorMessages.NotAllowedMessage);
 
-            if (offerPhoto.Offer.OfferPhotos.Count - 1 == 0)
+            if (!MinOfferPhotosCountSpecification.Create().IsSatisfied(offerPhoto.Offer))
                 throw new DeleteFileException("At least one photo is required");
 
             unitOfWork.OfferPhotoRepository.Delete(offerPhoto);

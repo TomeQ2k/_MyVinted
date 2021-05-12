@@ -1,11 +1,11 @@
 using MyVinted.Core.Application.Exceptions;
 using MyVinted.Core.Application.Services;
-using MyVinted.Core.Application.Services.ReadOnly;
 using MyVinted.Core.Domain.Data;
 using MyVinted.Core.Common.Helpers;
 using System.Linq;
 using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
+using MyVinted.Infrastructure.Shared.Specifications;
 
 namespace MyVinted.Infrastructure.Shared.Services
 {
@@ -27,7 +27,7 @@ namespace MyVinted.Infrastructure.Shared.Services
             var offer = await unitOfWork.OfferRepository.Get(offerId) ??
                         throw new EntityNotFoundException("Offer not found");
 
-            if (offer.BookingUserId != null)
+            if (OfferBookedSpecification.Create().IsSatisfied(offer))
                 throw new DuplicateException("Offer is already booked");
 
             offer.SetBookingUserId(currentUserId);
