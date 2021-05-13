@@ -27,9 +27,19 @@ namespace MyVinted.Infrastructure.Shared.Services
         {
             var jsonCategories = await filesManager.ReadFile(CategoriesFilePath);
             var categories = jsonCategories.FromJSON<IEnumerable<Category>>();
+            var categoriesFromDatabase = await unitOfWork.CategoryRepository.GetAll();
 
-            if ((await unitOfWork.CategoryRepository.Find(c => c != null) == null))
+            if (!categoriesFromDatabase.Any())
                 unitOfWork.CategoryRepository.AddRange(categories);
+            else
+            {
+                foreach (var categoryToInsert in categories)
+                    if (!categoriesFromDatabase.Any(c => c.Name.ToLower().Equals(categoryToInsert.Name.ToLower())))
+                        unitOfWork.CategoryRepository.Add(categoryToInsert);
+
+                var categoriesToDelete = categoriesFromDatabase.Where(category => !categories.Any(c => c.Name.ToLower().Equals(category.Name.ToLower())));
+                unitOfWork.CategoryRepository.DeleteRange(categoriesToDelete);
+            }
 
             return await unitOfWork.Complete();
         }
