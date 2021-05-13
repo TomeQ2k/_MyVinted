@@ -5,8 +5,10 @@ using MyVinted.Core.Domain.Data;
 using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
 using IdentityResult = MyVinted.Core.Application.Results.IdentityResult;
+using MyVinted.Core.Application.Services;
+using MyVinted.Infrastructure.Shared.Specifications;
 
-namespace MyVinted.Core.Application.Services
+namespace MyVinted.Infrastructure.Shared.Services
 {
     public abstract class BaseExternalIdentityService : IExternalIdentityService
     {
@@ -51,7 +53,7 @@ namespace MyVinted.Core.Application.Services
                 await unitOfWork.Complete();
             }
 
-            if (user.IsBlocked)
+            if (UserBlockedSpecification.Create().IsSatisfied(user))
                 throw new BlockException();
 
             var token = await jwtAuthorizationTokenGenerator.GenerateToken(user);

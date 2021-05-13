@@ -34,10 +34,10 @@ namespace MyVinted.Infrastructure.Shared.Services
             if (UserIsExternalSpecification.Create().IsSatisfied(user))
                 throw new InvalidCredentialsException("Invalid email address or password");
 
-            if (!user.EmailConfirmed)
+            if (!UserConfirmedSpecification.Create().IsSatisfied(user))
                 throw new AccountNotConfirmedException("Account is not confirmed");
 
-            if (user.IsBlocked)
+            if (UserBlockedSpecification.Create().IsSatisfied(user))
                 throw new BlockException();
 
             return (await signInManager.CheckPasswordSignInAsync(user, password, false)).Succeeded

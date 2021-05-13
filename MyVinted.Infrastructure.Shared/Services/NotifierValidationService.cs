@@ -1,7 +1,5 @@
 using MyVinted.Core.Application.Services;
-using MyVinted.Core.Application.Services.ReadOnly;
 using MyVinted.Core.Domain.Data;
-using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
 
 namespace MyVinted.Infrastructure.Shared.Services

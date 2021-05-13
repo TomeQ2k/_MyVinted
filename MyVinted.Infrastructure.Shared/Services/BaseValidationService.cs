@@ -1,6 +1,6 @@
 using MyVinted.Core.Domain.Data;
 
-namespace MyVinted.Core.Application.Services
+namespace MyVinted.Infrastructure.Shared.Services
 {
     public abstract class BaseValidationService
     {

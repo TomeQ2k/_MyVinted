@@ -6,6 +6,7 @@ using MyVinted.Core.Application.Services;
 using MyVinted.Core.Common.Helpers;
 using System.Threading.Tasks;
 using MyVinted.Core.Domain.Entities;
+using MyVinted.Infrastructure.Shared.Specifications;
 
 namespace MyVinted.Infrastructure.Shared.Services
 {
@@ -29,7 +30,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         {
             var user = await userManager.FindByEmailAsync(email) ?? throw new EntityNotFoundException("User not found");
 
-            if (user.IsBlocked)
+            if (UserBlockedSpecification.Create().IsSatisfied(user))
                 throw new BlockException();
 
             (token, newPassword) = (cryptoService.Decrypt(token), cryptoService.Decrypt(newPassword));
@@ -41,7 +42,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         {
             var user = await userManager.FindByEmailAsync(email) ?? throw new EntityNotFoundException("User not found");
 
-            if (user.IsBlocked)
+            if (UserBlockedSpecification.Create().IsSatisfied(user))
                 throw new BlockException();
 
             var resetPasswordToken = cryptoService.Encrypt(await userManager.GeneratePasswordResetTokenAsync(user));

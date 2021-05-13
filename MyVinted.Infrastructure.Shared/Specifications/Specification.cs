@@ -11,7 +11,7 @@ namespace MyVinted.Infrastructure.Shared.Specifications
             Func<T, bool> predicate = ToExpression().Compile();
             return predicate(model);
         }
-        
+
         public abstract Expression<Func<T, bool>> ToExpression();
     }
 }
