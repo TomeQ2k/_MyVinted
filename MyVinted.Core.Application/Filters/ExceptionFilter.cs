@@ -54,7 +54,7 @@ namespace MyVinted.Core.Application.Filters
 
             await context.HttpContext.Response.WriteAsync(jsonResponse);
 
-            Log.Information($"{context.Exception.GetType().Name}: {errorMessage} [{errorCode}] [HTTP {(int)statusCode}]");
+            Log.Error($"{context.Exception.GetType().Name}: {errorMessage} [{errorCode}] [HTTP {(int)statusCode}]");
 
             await base.OnExceptionAsync(context);
         }
