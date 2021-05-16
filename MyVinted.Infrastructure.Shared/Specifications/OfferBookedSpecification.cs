@@ -7,7 +7,7 @@ namespace MyVinted.Infrastructure.Shared.Specifications
     public class OfferBookedSpecification : Specification<Offer>
     {
         public override Expression<Func<Offer, bool>> ToExpression()
-           => offer => offer.BookingUserId != null;
+            => offer => offer.BookingUserId != null;
 
         public static OfferBookedSpecification Create() => new OfferBookedSpecification();
     }
