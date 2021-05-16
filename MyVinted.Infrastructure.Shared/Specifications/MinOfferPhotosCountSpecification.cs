@@ -7,7 +7,7 @@ namespace MyVinted.Infrastructure.Shared.Specifications
     public class MinOfferPhotosCountSpecification : Specification<Offer>
     {
         public override Expression<Func<Offer, bool>> ToExpression()
-           => offer => offer.OfferPhotos.Count - 1 > 0;
+            => offer => offer.OfferPhotos.Count - 1 > 0;
 
         public static MinOfferPhotosCountSpecification Create() => new MinOfferPhotosCountSpecification();
     }
