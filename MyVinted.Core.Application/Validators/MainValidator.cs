@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Mvc.Filters;
 using MyVinted.Core.Application.Helpers;
 using MyVinted.Core.Application.Models;
@@ -10,7 +11,8 @@ namespace MyVinted.Core.Application.Validators
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)
-                context.Result = new ValidationFailedResult(context.ModelState, Error.Build(ErrorCodes.ValidationError, ValidatorMessages.MainValidatorMessage));
+                context.Result = new ValidationFailedResult(context.ModelState, Error.Build(ErrorCodes.ValidationError, ValidatorMessages.MainValidatorMessage,
+                    HttpStatusCode.UnprocessableEntity));
         }
     }
 }
