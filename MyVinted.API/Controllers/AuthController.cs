@@ -2,9 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyVinted.Core.Application.Extensions;
-using MyVinted.Core.Application.Logic.Requests.Commands;
 using Serilog;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Features.Requests.Commands;
 
 namespace MyVinted.API.Controllers
 {

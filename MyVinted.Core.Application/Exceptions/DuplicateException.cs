@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class DuplicateException : Exception
+    public class DuplicateException : ApplicationException
     {
         public string ErrorCode { get; }
 

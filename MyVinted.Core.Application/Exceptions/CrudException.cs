@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class CrudException : Exception
+    public class CrudException : ApplicationException
     {
         public string ErrorCode { get; }
 

@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class DeleteFileException : Exception
+    public class DeleteFileException : ApplicationException
     {
         public string ErrorCode { get; }
 

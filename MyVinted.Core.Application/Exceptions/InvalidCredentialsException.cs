@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class InvalidCredentialsException : Exception
+    public class InvalidCredentialsException : ApplicationException
     {
         public string ErrorCode { get; }
 

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using MyVinted.Core.Application.Builders;
 using MyVinted.Core.Application.Exceptions;
-using MyVinted.Core.Application.Logic.Requests.Commands;
-using MyVinted.Core.Application.Logic.Requests.Queries.Params;
 using MyVinted.Core.Application.Services;
 using MyVinted.Core.Application.Services.ReadOnly;
 using MyVinted.Core.Domain.Data;
@@ -10,6 +8,8 @@ using MyVinted.Core.Common.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Features.Requests.Commands;
+using MyVinted.Core.Application.Features.Requests.Queries.Params;
 using MyVinted.Core.Domain.Entities;
 using MyVinted.Core.Domain.Data.Models;
 using MyVinted.Infrastructure.Shared.Specifications;

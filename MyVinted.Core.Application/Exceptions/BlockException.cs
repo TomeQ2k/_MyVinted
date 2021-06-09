@@ -3,7 +3,7 @@ using MyVinted.Core.Common.Helpers;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class BlockException : Exception
+    public class BlockException : ApplicationException
     {
         public string ErrorCode { get; }
 

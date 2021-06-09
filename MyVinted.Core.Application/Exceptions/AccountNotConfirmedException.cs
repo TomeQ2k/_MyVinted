@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class AccountNotConfirmedException : Exception
+    public class AccountNotConfirmedException : ApplicationException
     {
         public string ErrorCode { get; }
 

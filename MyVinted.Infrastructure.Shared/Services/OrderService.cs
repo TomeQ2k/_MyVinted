@@ -1,6 +1,4 @@
 using MyVinted.Core.Application.Exceptions;
-using MyVinted.Core.Application.Logic.Requests.Commands;
-using MyVinted.Core.Application.Logic.Requests.Queries;
 using MyVinted.Core.Application.Services;
 using MyVinted.Core.Application.Services.ReadOnly;
 using MyVinted.Core.Common.Helpers;
@@ -9,6 +7,8 @@ using Stripe;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Features.Requests.Commands;
+using MyVinted.Core.Application.Features.Requests.Queries;
 using MyVinted.Core.Domain.Entities;
 using MyVinted.Core.Domain.Data.Models;
 using Order = MyVinted.Core.Domain.Entities.Order;

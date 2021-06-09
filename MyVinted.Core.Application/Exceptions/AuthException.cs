@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class AuthException : Exception
+    public class AuthException : ApplicationException
     {
         public string ErrorCode { get; }
 

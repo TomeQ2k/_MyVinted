@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class CannotGenerateTokenException : Exception
+    public class CannotGenerateTokenException : ApplicationException
     {
         public string ErrorCode { get; }
 

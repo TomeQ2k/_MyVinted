@@ -1,7 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyVinted.Core.Application.Logic.Requests.Commands;
-using MyVinted.Core.Application.Logic.Requests.Queries;
+using MyVinted.Core.Application.Features.Requests.Commands;
+using MyVinted.Core.Application.Features.Requests.Queries;
 
 namespace MyVinted.API.AppConfigs
 {

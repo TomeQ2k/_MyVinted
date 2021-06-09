@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class NoPermissionsException : Exception
+    public class NoPermissionsException : ApplicationException
     {
         public string ErrorCode { get; }
 

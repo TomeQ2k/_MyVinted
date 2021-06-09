@@ -1,8 +1,8 @@
 using AutoMapper;
 using MyVinted.Core.Application.Dtos;
-using MyVinted.Core.Application.Logic.Requests.Commands;
-using MyVinted.Core.Application.Logic.Requests.Queries;
-using MyVinted.Core.Application.Logic.Requests.Queries.Params;
+using MyVinted.Core.Application.Features.Requests.Commands;
+using MyVinted.Core.Application.Features.Requests.Queries;
+using MyVinted.Core.Application.Features.Requests.Queries.Params;
 using MyVinted.Core.Application.ServiceUtils;
 using MyVinted.Core.Common.Helpers;
 using MyVinted.Core.Domain.Entities;

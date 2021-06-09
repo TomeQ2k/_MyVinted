@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class OldPasswordInvalidException : Exception
+    public class OldPasswordInvalidException : ApplicationException
     {
         public string ErrorCode { get; }
 

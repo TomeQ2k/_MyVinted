@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class CartOperationException : Exception
+    public class CartOperationException : ApplicationException
     {
         public string ErrorCode { get; }
 

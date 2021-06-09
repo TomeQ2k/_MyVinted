@@ -1,6 +1,6 @@
-using MyVinted.Core.Application.Logic.Requests.Queries;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Features.Requests.Queries;
 using MyVinted.Core.Domain.Entities;
 using MyVinted.Core.Domain.Data.Models;
 

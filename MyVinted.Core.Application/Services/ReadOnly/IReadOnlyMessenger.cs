@@ -1,5 +1,5 @@
-using MyVinted.Core.Application.Logic.Requests.Queries.Params;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Features.Requests.Queries.Params;
 using MyVinted.Core.Application.Models;
 using MyVinted.Core.Domain.Entities;
 using MyVinted.Core.Domain.Data.Models;

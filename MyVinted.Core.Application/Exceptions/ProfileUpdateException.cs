@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class ProfileUpdateException : Exception
+    public class ProfileUpdateException : ApplicationException
     {
         public string ErrorCode { get; }
 

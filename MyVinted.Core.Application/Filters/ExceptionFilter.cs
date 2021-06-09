@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using MyVinted.Core.Application.Exceptions;
 using MyVinted.Core.Application.Extensions;
-using MyVinted.Core.Application.Logic.Responses;
 using MyVinted.Core.Common.Helpers;
 using System;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Features.Responses;
 using MyVinted.Core.Application.Models;
 using Serilog;
 

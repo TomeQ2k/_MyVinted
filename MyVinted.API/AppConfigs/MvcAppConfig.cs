@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using MyVinted.Core.Application.Filters;
-using MyVinted.Core.Application.Validators;
 using System.Text.Json;
+using MyVinted.Core.Application.Validation;
 
 namespace MyVinted.API.AppConfigs
 {

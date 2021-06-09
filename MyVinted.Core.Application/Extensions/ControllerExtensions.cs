@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MyVinted.Core.Application.Logic.Responses;
+using MyVinted.Core.Application.Features.Responses;
 
 namespace MyVinted.Core.Application.Extensions
 {

@@ -3,7 +3,7 @@ using System;
 
 namespace MyVinted.Core.Application.Exceptions
 {
-    public class UploadFileException : Exception
+    public class UploadFileException : ApplicationException
     {
         public string ErrorCode { get; }
 

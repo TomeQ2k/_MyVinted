@@ -1,12 +1,12 @@
 using MyVinted.Core.Application.Builders;
 using MyVinted.Core.Application.Exceptions;
-using MyVinted.Core.Application.Logic.Requests.Commands;
 using MyVinted.Core.Application.Services;
 using MyVinted.Core.Application.Services.ReadOnly;
 using MyVinted.Core.Common.Enums;
 using MyVinted.Core.Domain.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Features.Requests.Commands;
 using MyVinted.Core.Common.Helpers;
 using MyVinted.Core.Domain.Entities;
 
