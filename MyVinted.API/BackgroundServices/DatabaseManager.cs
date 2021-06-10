@@ -1,7 +1,7 @@
 using MyVinted.API.BackgroundServices.Interfaces;
 using MyVinted.Core.Application.Services;
 using MyVinted.Core.Common.Helpers;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyVinted.API.BackgroundServices
 {
@@ -16,23 +16,21 @@ namespace MyVinted.API.BackgroundServices
             this.categoryService = categoryService;
         }
 
-        public void Seed()
+        public async Task Seed()
         {
-            InsertRoles();
-            InsertCategories();
+            await InsertRoles();
+            await InsertCategories();
         }
 
         #region private
 
-        private void InsertRoles()
+        private async Task InsertRoles()
         {
-            Constants.RolesToSeed.ToList().ForEach((roleName) =>
-            {
-                rolesManager.CreateRole(roleName).Wait();
-            });
+            foreach (var roleName in Constants.RolesToSeed)
+                await rolesManager.CreateRole(roleName);
         }
 
-        private async void InsertCategories() => await categoryService.InsertCategoriesFromFile();
+        private async Task InsertCategories() => await categoryService.InsertCategoriesFromFile();
 
         #endregion
     }

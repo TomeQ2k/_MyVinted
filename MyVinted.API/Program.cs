@@ -9,12 +9,13 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
 using System;
+using System.Threading.Tasks;
 
 namespace MyVinted.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
 
@@ -41,7 +42,8 @@ namespace MyVinted.API
 
                     context.Database.Migrate();
 
-                    databaseManager.Seed();
+                    await databaseManager.Seed();
+                    Log.Information("Database seed completed");
 
                     host.Run();
                 }
