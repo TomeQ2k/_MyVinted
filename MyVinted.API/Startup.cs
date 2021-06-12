@@ -13,6 +13,7 @@ using MyVinted.API.AppConfigs;
 using MyVinted.Core.Application.Logging;
 using MyVinted.Core.Application.Mapper;
 using MyVinted.Core.Application.SignalR;
+using MyVinted.Core.Application.SignalR.Hubs;
 using MyVinted.Core.Common.Helpers;
 using Stripe;
 using System.Globalization;

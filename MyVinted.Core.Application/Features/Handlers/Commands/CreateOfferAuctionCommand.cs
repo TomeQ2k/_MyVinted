@@ -9,6 +9,7 @@ using MyVinted.Core.Application.Features.Responses.Commands;
 using MyVinted.Core.Application.Helpers;
 using MyVinted.Core.Application.Services;
 using MyVinted.Core.Application.SignalR;
+using MyVinted.Core.Application.SignalR.Hubs;
 
 namespace MyVinted.Core.Application.Features.Handlers.Commands
 {

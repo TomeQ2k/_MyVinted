@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MyVinted.Core.Application.SignalR.Hubs;
 
 namespace MyVinted.Core.Application.SignalR
 {

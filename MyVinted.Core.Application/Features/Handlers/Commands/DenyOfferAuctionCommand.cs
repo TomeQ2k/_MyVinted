@@ -11,6 +11,7 @@ using MyVinted.Core.Application.Services;
 using MyVinted.Core.Application.Services.ReadOnly;
 using MyVinted.Core.Application.ServiceUtils;
 using MyVinted.Core.Application.SignalR;
+using MyVinted.Core.Application.SignalR.Hubs;
 
 namespace MyVinted.Core.Application.Features.Handlers.Commands
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace MyVinted.Core.Application.SignalR
+namespace MyVinted.Core.Application.SignalR.Hubs
 {
     public class MessengerHub : HubClient
     {
