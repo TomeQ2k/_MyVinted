@@ -51,7 +51,7 @@ namespace MyVinted.API
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Application terminated unexpectedly...");
+                    Log.Fatal(ex, "Application terminated unexpectedly...");
                 }
                 finally
                 {
