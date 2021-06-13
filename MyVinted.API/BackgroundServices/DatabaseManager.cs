@@ -1,6 +1,7 @@
 using MyVinted.API.BackgroundServices.Interfaces;
 using MyVinted.Core.Application.Services;
 using MyVinted.Core.Common.Helpers;
+using Serilog;
 using System.Threading.Tasks;
 
 namespace MyVinted.API.BackgroundServices
@@ -20,6 +21,8 @@ namespace MyVinted.API.BackgroundServices
         {
             await InsertRoles();
             await InsertCategories();
+
+            Log.Information("Database seed completed");
         }
 
         #region private
