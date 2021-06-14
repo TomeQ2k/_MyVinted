@@ -18,7 +18,12 @@ namespace MyVinted.Core.Application.Features.Handlers.Commands
         }
 
         public async Task<LikeMessageResponse> Handle(LikeMessageRequest request, CancellationToken cancellationToken)
-            => await messenger.LikeMessage(request.MessageId) ? new LikeMessageResponse()
-                : throw new CrudException("Liking message failed");
+        {
+            var likeMessageResult = await messenger.LikeMessage(request.MessageId);
+
+            return likeMessageResult.IsSucceeded
+                ? new LikeMessageResponse {IsLiked = likeMessageResult.IsLiked}
+                : throw new ServerException("Changing message like status failed");
+        }
     }
 }

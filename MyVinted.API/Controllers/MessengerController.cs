@@ -29,7 +29,8 @@ namespace MyVinted.API.Controllers
         {
             var response = await mediator.Send(request);
 
-            Log.Information($"User #{HttpContext.GetCurrentUserId()} fetched their messages with user #{request.RecipientId}");
+            Log.Information(
+                $"User #{HttpContext.GetCurrentUserId()} fetched their messages with user #{request.RecipientId}");
 
             return this.CreateResponse(response);
         }
@@ -59,7 +60,8 @@ namespace MyVinted.API.Controllers
         {
             var response = await mediator.Send(request);
 
-            Log.Information($"User #{HttpContext.GetCurrentUserId()} liked message #{request.MessageId}");
+            Log.Information(
+                $"User #{HttpContext.GetCurrentUserId()} {(response.IsLiked ? "liked" : "unliked")} message #{request.MessageId}");
 
             return this.CreateResponse(response);
         }

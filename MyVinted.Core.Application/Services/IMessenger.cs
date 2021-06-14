@@ -1,5 +1,6 @@
 using MyVinted.Core.Application.Services.ReadOnly;
 using System.Threading.Tasks;
+using MyVinted.Core.Application.Results;
 using MyVinted.Core.Domain.Entities;
 
 namespace MyVinted.Core.Application.Services
@@ -10,7 +11,7 @@ namespace MyVinted.Core.Application.Services
 
         Task<bool> DeleteMessage(string messageId);
 
-        Task<bool> LikeMessage(string messageId);
+        Task<LikeMessageResult> LikeMessage(string messageId);
 
         Task<bool> ReadMessage(string messageId);
     }

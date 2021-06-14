@@ -29,7 +29,8 @@ namespace MyVinted.API.Controllers
         {
             var response = await mediator.Send(request);
 
-            Log.Information($"User #{HttpContext.GetCurrentUserId()} added offer #{request.OfferId} to their favorites");
+            Log.Information(
+                $"User #{HttpContext.GetCurrentUserId()} {(response.IsLiked ? "liked" : "unliked")} offer #{request.OfferId}");
 
             return this.CreateResponse(response);
         }
