@@ -27,8 +27,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         {
             var payload = await VerifyGoogleToken(idToken) ?? throw new ExternalAuthException("Invalid external authentication");
 
-            return await AddUserLogin(provider, payload.Subject, provider,
-                username: payload.Email, pictureUrl: payload.Picture);
+            return await AddUserLogin(provider, payload.Subject, payload.Email, username: payload.Email, pictureUrl: payload.Picture);
         }
 
         public async Task<Payload> VerifyGoogleToken(string idToken)
