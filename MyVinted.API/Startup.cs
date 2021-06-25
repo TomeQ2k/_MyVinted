@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -110,6 +111,8 @@ namespace MyVinted.API
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            app.UseIpRateLimiting();
 
             app.ConfigureLogging();
 
