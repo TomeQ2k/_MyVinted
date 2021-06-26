@@ -43,6 +43,7 @@ namespace MyVinted.API.AppConfigs
             services.AddScoped<ICartManager, CartManager>();
             services.AddScoped<IBookingService, BookingService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IStripePaymentService, StripePaymentService>();
             services.AddScoped<IPremiumStatsService, PremiumStatsService>();
             services.AddScoped<IAdminStatsService, AdminStatsService>();
             services.AddScoped<IBalanceService, BalanceService>();

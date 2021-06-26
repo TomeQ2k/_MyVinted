@@ -1,15 +1,12 @@
 using MyVinted.Core.Application.Exceptions;
 using MyVinted.Core.Application.Services;
 using MyVinted.Core.Application.Services.ReadOnly;
-using MyVinted.Core.Common.Helpers;
 using MyVinted.Core.Domain.Data;
-using Stripe;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MyVinted.Core.Application.Features.Requests.Commands;
 using MyVinted.Core.Application.Features.Requests.Queries;
-using MyVinted.Core.Domain.Entities;
 using MyVinted.Core.Domain.Data.Models;
 using Order = MyVinted.Core.Domain.Entities.Order;
 
@@ -19,12 +16,14 @@ namespace MyVinted.Infrastructure.Shared.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IReadOnlyCartManager cartManager;
+        private readonly IStripePaymentService paymentService;
         private readonly IHttpContextReader httpContextReader;
 
-        public OrderService(IUnitOfWork unitOfWork, IReadOnlyCartManager cartManager, IHttpContextReader httpContextReader)
+        public OrderService(IUnitOfWork unitOfWork, IReadOnlyCartManager cartManager, IStripePaymentService paymentService, IHttpContextReader httpContextReader)
         {
             this.unitOfWork = unitOfWork;
             this.cartManager = cartManager;
+            this.paymentService = paymentService;
             this.httpContextReader = httpContextReader;
         }
 
@@ -37,15 +36,15 @@ namespace MyVinted.Infrastructure.Shared.Services
         public async Task<Order> PurchaseOrder(PurchaseOrderRequest request)
         {
             var cart = await cartManager.GetCart() ?? throw new PaymentException("There are no items to purchase order");
-            var token = await CreateStripeToken(request.TokenId) ?? throw new PaymentException("Creating Stripe token failed");
+            var token = await paymentService.CreatePaymentToken(request.TokenId) ?? throw new PaymentException("Creating Stripe token failed");
             var orderItems = cart.Items;
 
             var order = Order.Create(cart.UserId, token.Id);
 
             unitOfWork.OrderRepository.Add(order);
 
-            if (await ExecuteStripePayment(request, order.Id) == null)
-                throw new PaymentException("Stripe payment failed");
+            if (await paymentService.ExecutePayment(request, order.Id) == null)
+                throw new PaymentException("External payment failed");
 
             if (!await unitOfWork.Complete())
                 throw new PaymentException("Creating order failed");
@@ -67,39 +66,5 @@ namespace MyVinted.Infrastructure.Shared.Services
 
             return await unitOfWork.Complete() ? order : throw new PaymentException("Creating order failed");
         }
-
-        #region private
-
-        private async Task<StripeToken> CreateStripeToken(string tokenId)
-        {
-            var token = StripeToken.Create(tokenId);
-
-            unitOfWork.StripeTokenRepository.Add(token);
-
-            return await unitOfWork.Complete() ? token : throw new ServerException("Creating Stripe token failed");
-        }
-
-        private async Task<Charge> ExecuteStripePayment(PurchaseOrderRequest request, string orderId)
-        {
-            var chargeOptions = new ChargeCreateOptions
-            {
-                Source = request.TokenId,
-                Amount = (long)(request.TotalAmount * Constants.MoneyMultiplier),
-                Currency = request.Currency,
-                Description = Constants.OrderMessage(orderId),
-                Metadata = new Dictionary<string, string>
-                {
-                    {"OurRef", $"OurRef-{Utils.NewGuid(length: 32)}"}
-                },
-                ReceiptEmail = request.Email
-            };
-
-            var chargeService = new ChargeService();
-            var charge = await chargeService.CreateAsync(chargeOptions);
-
-            return charge;
-        }
-
-        #endregion
     }
 }

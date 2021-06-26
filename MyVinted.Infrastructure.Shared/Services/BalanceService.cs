@@ -18,6 +18,11 @@ namespace MyVinted.Infrastructure.Shared.Services
 
         public async Task<BalanceAccount> CreateBalanceAccount(string accountId, decimal startBalance = Constants.DefaultAccountBalance)
         {
+            var balanceAccountFromDatabase = await unitOfWork.BalanceAccountRepository.Find(b => b.AccountId == accountId);
+
+            if (balanceAccountFromDatabase != null)
+                return balanceAccountFromDatabase;
+
             var balanceAccount = BalanceAccount.Create(accountId, balance: startBalance);
 
             unitOfWork.BalanceAccountRepository.Add(balanceAccount);

@@ -16,11 +16,13 @@ namespace MyVinted.Core.Application.Features.Handlers.Commands
     public class SignInWithExternalProviderCommand : IRequestHandler<SignInWithExternalProviderRequest, SignInWithExternalProviderResponse>
     {
         private readonly IServiceProvider services;
+        private readonly IBalanceService balanceService;
         private readonly IMapper mapper;
 
-        public SignInWithExternalProviderCommand(IServiceProvider services, IMapper mapper)
+        public SignInWithExternalProviderCommand(IServiceProvider services, IBalanceService balanceService, IMapper mapper)
         {
             this.services = services;
+            this.balanceService = balanceService;
             this.mapper = mapper;
         }
 
@@ -36,7 +38,11 @@ namespace MyVinted.Core.Application.Features.Handlers.Commands
             var identityResult = await identityService.SignInWithExternalProvider(request.Provider, request.IdToken);
 
             if (identityResult != null)
+            {
+                await balanceService.CreateBalanceAccount(identityResult.User.Id);
+
                 return new SignInWithExternalProviderResponse { Token = identityResult.Token, User = mapper.Map<UserAuthDto>(identityResult.User) };
+            }
 
             throw new ExternalAuthException("Error occurred during external authentication");
         }
