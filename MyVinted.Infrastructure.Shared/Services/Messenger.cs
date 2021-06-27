@@ -78,7 +78,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         public async Task<Message> SendMessage(string text, string recipientId)
         {
             var currentUser = await accountManager.GetCurrentUser();
-            var recipient = await unitOfWork.UserRepository.Get(recipientId) ??
+            var recipient = await unitOfWork.UserRepository.FindById(recipientId) ??
                             throw new EntityNotFoundException("Recipient not found");
 
             if (currentUser.Id == recipientId)

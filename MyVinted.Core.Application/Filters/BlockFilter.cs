@@ -23,7 +23,7 @@ namespace MyVinted.Core.Application.Filters
 
             var database = context.HttpContext.RequestServices.GetService<IUnitOfWork>();
 
-            var currentUser = await database.UserRepository.Get(currentUserId) ?? throw new EntityNotFoundException("User not found");
+            var currentUser = await database.UserRepository.FindById(currentUserId) ?? throw new EntityNotFoundException("User not found");
 
             if (currentUser.IsBlocked)
                 throw new BlockException();

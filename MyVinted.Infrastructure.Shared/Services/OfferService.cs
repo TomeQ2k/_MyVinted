@@ -33,7 +33,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         }
 
         public async Task<Offer> GetOffer(string offerId)
-            => await unitOfWork.OfferRepository.Get(offerId) ?? throw new EntityNotFoundException("Offer not found");
+            => await unitOfWork.OfferRepository.FindById(offerId) ?? throw new EntityNotFoundException("Offer not found");
 
         public async Task<IPagedList<Offer>> GetOffers(OfferFiltersParams filters)
             => await unitOfWork.OfferRepository.GetFilteredOffers(filters, (filters.PageNumber, filters.PageSize));
@@ -41,7 +41,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         public async Task<Offer> AddOffer(AddOfferRequest request)
         {
             var currentUser = await accountManager.GetCurrentUser();
-            var category = await unitOfWork.CategoryRepository.Get(request.CategoryId) ??
+            var category = await unitOfWork.CategoryRepository.FindById(request.CategoryId) ??
                            throw new EntityNotFoundException("Category not found");
 
             var offer = new OfferBuilder()
@@ -89,7 +89,7 @@ namespace MyVinted.Infrastructure.Shared.Services
 
         public async Task<bool> DeletePhoto(string photoId, string offerId)
         {
-            var offerPhoto = await unitOfWork.OfferPhotoRepository.Get(photoId) ??
+            var offerPhoto = await unitOfWork.OfferPhotoRepository.FindById(photoId) ??
                              throw new EntityNotFoundException("Offer photo not found");
 
             if (offerPhoto.OfferId != offerId)

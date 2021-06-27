@@ -28,7 +28,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         public async Task<(bool, OfferLike)> LikeOffer(string offerId)
         {
             var currentUser = await accountManager.GetCurrentUser();
-            var offer = await unitOfWork.OfferRepository.Get(offerId) ??
+            var offer = await unitOfWork.OfferRepository.FindById(offerId) ??
                         throw new EntityNotFoundException("Offer not found");
 
             if (currentUser.Id == offer.OwnerId)

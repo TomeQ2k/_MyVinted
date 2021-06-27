@@ -26,7 +26,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         {
             var currentUserId = httpContextReader.CurrentUserId ??
                                 throw new AuthException(ErrorMessages.NotAuthenticatedMessage);
-            var offer = await unitOfWork.OfferRepository.Get(offerId) ??
+            var offer = await unitOfWork.OfferRepository.FindById(offerId) ??
                         throw new EntityNotFoundException("Offer not found");
 
             if (!OfferAllowBiddingSpecification.Create().IsSatisfied(offer))

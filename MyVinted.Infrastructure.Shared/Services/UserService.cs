@@ -23,7 +23,7 @@ namespace MyVinted.Infrastructure.Shared.Services
         }
 
         public async Task<User> GetUser(string userId)
-            => await unitOfWork.UserRepository.Get(userId) ?? throw new EntityNotFoundException("User not found");
+            => await unitOfWork.UserRepository.FindById(userId) ?? throw new EntityNotFoundException("User not found");
 
         public async Task<IPagedList<User>> GetUsers(UserFiltersParams filters)
             => await unitOfWork.UserRepository.GetFilteredUsers(filters, (filters.PageNumber, filters.PageSize));
@@ -35,7 +35,7 @@ namespace MyVinted.Infrastructure.Shared.Services
             if (currentUser.Id == userId)
                 throw new NoPermissionsException(ErrorMessages.NotAllowedMessage);
 
-            var user = await unitOfWork.UserRepository.Get(userId) ??
+            var user = await unitOfWork.UserRepository.FindById(userId) ??
                        throw new EntityNotFoundException("User not found");
             var userFollow = user.Followings.FirstOrDefault(f => f.FollowerId == currentUser.Id);
 

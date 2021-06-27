@@ -32,7 +32,7 @@ namespace MyVinted.Infrastructure.Shared.Services
 
         public async Task<decimal> AddBalance(string accountId, decimal balanceToAdd)
         {
-            var balanceAccount = (await unitOfWork.UserRepository.Get(accountId) ?? throw new EntityNotFoundException("Account not found")).BalanceAccount
+            var balanceAccount = (await unitOfWork.UserRepository.FindById(accountId) ?? throw new EntityNotFoundException("Account not found")).BalanceAccount
                 ?? await CreateBalanceAccount(accountId);
 
             if (!balanceAccount.AddBalance(balanceToAdd))

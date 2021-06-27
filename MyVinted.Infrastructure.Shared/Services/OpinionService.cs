@@ -32,7 +32,7 @@ namespace MyVinted.Infrastructure.Shared.Services
             if (currentUser.Id == userId)
                 throw new NoPermissionsException(ErrorMessages.NotAllowedMessage);
 
-            var user = await unitOfWork.UserRepository.Get(userId) ??
+            var user = await unitOfWork.UserRepository.FindById(userId) ??
                        throw new EntityNotFoundException("User not found");
 
             if (AddedOneOpinionPerUserSpecification.Create(currentUser.Id).IsSatisfied(user))

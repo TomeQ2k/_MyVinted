@@ -36,7 +36,7 @@ namespace MyVinted.Infrastructure.Shared.Services
 
         public async Task<bool> MarkAsRead(string notificationId)
         {
-            var notification = await unitOfWork.NotificationRepository.Get(notificationId)
+            var notification = await unitOfWork.NotificationRepository.FindById(notificationId)
                                ?? throw new EntityNotFoundException("Notification not found");
 
             if (!notifierValidationService.ValidateUserPermissions(notification))
@@ -62,7 +62,7 @@ namespace MyVinted.Infrastructure.Shared.Services
 
         public async Task<bool> RemoveNotification(string notificationId)
         {
-            var notification = await unitOfWork.NotificationRepository.Get(notificationId)
+            var notification = await unitOfWork.NotificationRepository.FindById(notificationId)
                                ?? throw new EntityNotFoundException("Notification not found");
 
             if (!notifierValidationService.ValidateUserPermissions(notification))
