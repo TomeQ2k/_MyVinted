@@ -6,5 +6,10 @@ namespace MyVinted.Core.Domain.Entities
     {
         public string Id { get; protected set; }
         public DateTime DateCreated { get; protected set; } = DateTime.Now;
+
+        public static T Create<T>(string tokenId) where T : BasePaymentToken, new() => new T
+        {
+            Id = tokenId
+        };
     }
 }

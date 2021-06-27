@@ -43,7 +43,7 @@ namespace MyVinted.Infrastructure.Shared.Services
 
         public async Task<StripeToken> CreatePaymentToken(string tokenId)
         {
-            var token = StripeToken.Create(tokenId);
+            var token = BasePaymentToken.Create<StripeToken>(tokenId);
 
             unitOfWork.StripeTokenRepository.Add(token);
 
