@@ -28,9 +28,17 @@ namespace MyVinted.Infrastructure.Shared.Services
                 .Count();
 
         public async Task<double> AverageOffersCountPerUser()
-            => (double) (await CountOffers()) / (await CountAccounts());
+        {
+            int accountsCount = await CountAccounts();
+
+            return accountsCount != 0 ? (double)(await CountOffers()) / accountsCount : 0;
+        }
 
         public async Task<double> AverageUserOpinion()
-            => (double) (await unitOfWork.OpinionRepository.GetAll()).Sum(o => o.Rating) / (await CountAccounts());
+        {
+            int accountsCount = await CountAccounts();
+
+            return accountsCount != 0 ? (double)(await unitOfWork.OpinionRepository.GetAll()).Sum(o => o.Rating) / accountsCount : 0;
+        }
     }
 }

@@ -1,6 +1,6 @@
 namespace MyVinted.Core.Application.Models
 {
-    public record StatsModel
+    public abstract record StatsModel
     (
         int OffersCount,
         int OrdersCount,
